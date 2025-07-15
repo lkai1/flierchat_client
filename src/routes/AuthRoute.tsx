@@ -6,20 +6,21 @@ import { SocketContext } from "../Contexts/SocketContext.ts";
 
 const AuthRoute = ({ children }: { children: React.JSX.Element; }): React.JSX.Element => {
     const { socket } = useContext(SocketContext);
-    const [verifiedLogin, setVerifiedLogin] = useState<boolean>(false);
+    const [verifiedLogin, setVerifiedLogin] = useState<boolean | null>(null);
 
     useEffect(() => {
         const getData = async (): Promise<void> => {
             const result = await verifyLoginService();
             if (!result.success) {
-                socket.disconnect();
-                await axios.post('/api/auth/logout', {}, { withCredentials: true });
+                await axios.post('http://localhost:5000/api/auth/logout', {}, { withCredentials: true });
             }
             setVerifiedLogin(result.success);
         };
         void getData();
     }, [socket]);
     console.log(verifiedLogin);
+
+    if (verifiedLogin === null) { return <div>Loading...</div>; }
 
     return verifiedLogin
         ? children

@@ -114,6 +114,7 @@ const SocketProvider = (
         });
 
         return (): void => {
+            socket.disconnect();
             socket.off("userDisconnected");
             socket.off("userConnected");
             socket.off("onlineUsers");

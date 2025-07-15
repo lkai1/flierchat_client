@@ -23,7 +23,7 @@ const UserSettingsPage = (): React.JSX.Element => {
             setIsMenuShown(false);
             const userChatIds = userChats.map((chat) => { return chat.Chat.id; });
             socket.emit("userDelete", { userChatIds });
-            await logoutService(navigate, socket);
+            await logoutService(navigate);
         } else {
             setNotification(result.message);
         }

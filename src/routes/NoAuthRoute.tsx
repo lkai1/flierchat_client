@@ -7,7 +7,7 @@ interface Props {
 };
 
 const NoAuthRoute = ({ children }: Props): React.JSX.Element => {
-    const [verifiedLogin, setVerifiedLogin] = useState<boolean>(false);
+    const [verifiedLogin, setVerifiedLogin] = useState<boolean | null>(null);
 
     useEffect(() => {
         const getData = async (): Promise<void> => {
@@ -16,6 +16,8 @@ const NoAuthRoute = ({ children }: Props): React.JSX.Element => {
         };
         void getData();
     }, []);
+
+    if (verifiedLogin === null) { return <div>Loading...</div>; }
 
     return verifiedLogin
         ? <Navigate to="/main" />

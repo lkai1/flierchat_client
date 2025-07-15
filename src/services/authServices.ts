@@ -1,7 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 import { validateUsername, validatePassword } from '../utils/validation/authValidation.ts';
 import { NavigateFunction } from 'react-router';
-import { Socket } from 'socket.io-client';
 
 export const loginService = async (loginCreds: { username: string, password: string }): Promise<{
     success: boolean,
@@ -15,7 +14,7 @@ export const loginService = async (loginCreds: { username: string, password: str
             return result;
         }
 
-        const response: AxiosResponse = await axios.post("/api/auth/login", {
+        const response: AxiosResponse = await axios.post("http://localhost:5000/api/auth/login", {
             username: loginCreds.username,
             password: loginCreds.password,
         }, {
@@ -49,7 +48,7 @@ export const registerService = async (registerCreds: {
             return result;
         }
 
-        const response: AxiosResponse = await axios.post("/api/auth/register", {
+        const response: AxiosResponse = await axios.post("http://localhost:5000/api/auth/register", {
             username: registerCreds.username,
             password: registerCreds.password,
             password2: registerCreds.password2
@@ -72,13 +71,9 @@ export const registerService = async (registerCreds: {
     return result;
 };
 
-export const logoutService = async (
-    navigate: NavigateFunction,
-    socket: Socket
-): Promise<{ success: boolean, message: string }> => {
+export const logoutService = async (navigate: NavigateFunction,): Promise<{ success: boolean, message: string }> => {
     //removed navigate from here so fix where this function is used
     try {
-        socket.disconnect();
         await axios.post('/api/auth/logout', {}, { withCredentials: true });
         await navigate("/login");
         return { success: true, message: "" };
@@ -90,7 +85,6 @@ export const logoutService = async (
 export const verifyLoginService = async (): Promise<{ success: boolean, message: string }> => {
     try {
         await axios.get("http://localhost:5000/api/auth/verify_login", { withCredentials: true });
-
         return { success: true, message: "" };
     } catch {
         return { success: false, message: "Login verification failed." };

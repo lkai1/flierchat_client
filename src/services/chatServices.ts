@@ -24,9 +24,10 @@ interface Chat {
 
 export const getUserChatsService = async (): Promise<Chat[]> => {
     try {
-        const response = await axios.get<Chat[]>("/api/chat", {
+        const response = await axios.get<Chat[]>("http://localhost:5000/api/chat", {
             withCredentials: true
         });
+        console.log(response.data);
         return response.data;
     } catch {
         return [];
@@ -78,7 +79,7 @@ export const createGroupChatService = async (chatName: string): Promise<{ succes
             return result;
         }
 
-        const response = await axios.post<string>("/api/chat/group",
+        const response = await axios.post<string>("http://localhost:5000/api/chat/group",
             { chatName },
             { withCredentials: true }
         );
@@ -86,6 +87,7 @@ export const createGroupChatService = async (chatName: string): Promise<{ succes
         result.message = "Ryhmäkeskustelun luonti onnistui.";
         result.data = response.data;
     } catch (error) {
+        console.log(error);
         if (axios.isAxiosError(error)) {
             if (error.response?.status === 400) {
                 result.message = "Tarkista oikeinkirjoitus.";
@@ -217,7 +219,7 @@ export const getUnreadMessagesAmountInChatService = async (chatId: string): Prom
             return result;
         }
 
-        const response = await axios.get<number>("/api/chat/unread_messages", {
+        const response = await axios.get<number>("http://localhost:5000/api/chat/unread_messages", {
             params: { chatId },
             withCredentials: true
         });
