@@ -1,0 +1,169 @@
+.mainContainer {
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: calc(100% - 34px);
+    border: 2px solid rgb(230, 230, 230);
+    border-bottom: none;
+    padding: 15px;
+    background-color: white;
+}
+
+.mainContainer:hover {
+    background-color: rgb(240, 240, 240);
+}
+
+.mainContainer[is-first="true"] {
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: calc(100% - 34px);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    padding: 15px;
+    background-color: white;
+}
+
+.mainContainer:hover[is-first="true"] {
+    background-color: rgb(240, 240, 240);
+}
+
+.mainContainer[is-last="true"] {
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: calc(100% - 34px);
+    border: 2px solid rgb(230, 230, 230);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    padding: 15px;
+    background-color: white;
+}
+
+.mainContainer:hover[is-last="true"] {
+    background-color: rgb(240, 240, 240);
+}
+
+.chatIconContainer {
+    position: relative;
+    background-color: rgb(200, 200, 200);
+    border-radius: 100px;
+    height: 35px;
+    width: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.chatIconImg {
+    fill: white;
+}
+
+.onlineStatusCircle[user-online="true"] {
+    position: absolute;
+    background-color: rgb(0, 176, 0);
+    border: 3px solid rgb(255, 255, 255);
+    border-radius: 100px;
+    height: 15px;
+    width: 15px;
+    right: -3px;
+    bottom: -3px;
+}
+
+.onlineStatusCircle[user-online="false"] {
+    position: absolute;
+    background-color: rgb(130, 130, 130);
+    border: 3px solid rgb(255, 255, 255);
+    border-radius: 100px;
+    height: 15px;
+    width: 15px;
+    right: -3px;
+    bottom: -3px;
+}
+
+.typeAndTitleTextContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: fit-content;
+}
+
+.typeText {
+    font-family: 'Quicksand';
+    font-size: 13px;
+    margin: 0;
+    color: rgb(150, 150, 150);
+    font-weight: bold;
+    width: 100%;
+}
+
+.titleText {
+    font-family: 'Quicksand';
+    font-size: 18px;
+    color: rgb(60, 60, 60);
+    margin: 0;
+    font-weight: bold;
+}
+
+.unreadMessagesAmountContainer {
+    position: absolute;
+    background-color: rgb(255, 50, 50);
+    border-radius: 100px;
+    height: 20px;
+    width: 20px;
+    left: -3px;
+    top: -3px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.unreadMessagesAmountText {
+    color: white;
+    font-family: "Quicksand";
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+}
+
+@media only screen and (max-width: 450px) {
+    .titleText {
+        max-width: 260px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .titleText {
+        max-width: 220px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+}
+
+@media only screen and (max-width: 350px) {
+    .titleText {
+        max-width: 175px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+}
+
+@media only screen and (max-width: 300px) {
+    .titleText {
+        max-width: 150px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+}

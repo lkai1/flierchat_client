@@ -1,0 +1,84 @@
+.mainContainer {
+    width: calc(100% - 20px);
+    margin-left: 10px;
+    margin-right: 10px;
+    height: 100%;
+}
+
+.chatInfoContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-left: 5px;
+    width: fit-content;
+    padding-bottom: 5px;
+}
+
+.chatTypeText {
+    margin: 0;
+    font-family: "Quicksand";
+    font-size: 17px;
+    font-weight: bold;
+    color: rgb(180, 180, 180);
+}
+
+.chatTitleText {
+    margin: 0;
+    font-family: "Quicksand";
+    font-size: 17px;
+    font-weight: bold;
+    color: rgb(60, 60, 60);
+    margin-left: 5px;
+}
+
+.createMessageFormContentContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-radius: 10px;
+    overflow: hidden;
+    width: 100%;
+    margin-top: 15px;
+    border: 2px solid rgb(230, 230, 230);
+}
+
+.notification {
+    display: none;
+}
+
+.notificationShown {
+    color: rgb(255, 50, 50);
+    font-family: 'Quicksand';
+    padding-top: 10px;
+    margin: 0;
+    font-size: 14px;
+    text-align: center;
+    height: 20px;
+}
+
+.messageInput {
+    outline: none;
+    border: 0;
+    width: calc(100% - 40px);
+    height: 30px;
+    padding: 10px 10px 10px 20px;
+    font-size: 16px;
+    font-family: "Quicksand";
+    background-color: white;
+}
+
+.sendMessageButton {
+    padding: 0px 15px 0px 15px;
+    height: 50px;
+    font-size: 16px;
+    font-family: 'Quicksand';
+    background-color: rgb(0, 153, 255);
+    color: white;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+}
+
+.sendMessageButton:hover {
+    background-color: rgb(0, 138, 230);
+}

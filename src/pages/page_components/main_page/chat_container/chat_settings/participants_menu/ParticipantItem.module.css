@@ -1,0 +1,85 @@
+.mainContainer {
+    width: 100%;
+    height: fit-content;
+}
+
+.contentContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid rgb(230, 230, 230);
+}
+
+.userInfoContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.userIconContainer {
+    position: relative;
+    background-color: rgb(200, 200, 200);
+    border-radius: 100px;
+    height: 40px;
+    width: 40px;
+    margin: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.userIcon {
+    fill: white;
+}
+
+.onlineStatusCircle[user-online="true"] {
+    position: absolute;
+    background-color: rgb(0, 176, 0);
+    border: 3px solid rgb(255, 255, 255);
+    border-radius: 100px;
+    height: 15px;
+    width: 15px;
+    right: -3px;
+    bottom: -3px;
+}
+
+.onlineStatusCircle[user-online="false"] {
+    position: absolute;
+    background-color: rgb(130, 130, 130);
+    border: 3px solid rgb(255, 255, 255);
+    border-radius: 100px;
+    height: 15px;
+    width: 15px;
+    right: -3px;
+    bottom: -3px;
+}
+
+.creatorText {
+    margin: 0;
+    font-family: "Quicksand";
+    font-size: 12px;
+    font-weight: bold;
+    color: rgb(180, 180, 180);
+}
+
+.username {
+    display: inline-block;
+    font-family: "Quicksand";
+    margin: 0;
+    width: 140px;
+    font-size: 16px;
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+@media only screen and (max-width: 340px) {
+    .username {
+        width: 120px;
+    }
+}

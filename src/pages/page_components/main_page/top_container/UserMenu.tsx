@@ -1,0 +1,44 @@
+import styles from "./UserMenu.module.css";
+import UserIcon from "../../../../lib/icons/userIcon.svg";
+import React, { useContext, useState } from "react";
+import { UserInfoContext } from "../../../../Contexts/UserInfoContext.ts";
+import { logoutService } from "../../../../services/authServices.ts";
+import { useNavigate } from "react-router-dom";
+import { SocketContext } from "../../../../Contexts/SocketContext.ts";
+
+const UserMenu = (): React.JSX.Element => {
+
+    const [isShown, setIsShown] = useState(false);
+    const { userInfoState } = useContext(UserInfoContext);
+    const navigate = useNavigate();
+    const { socket } = useContext(SocketContext);
+
+    return (
+        <div className={styles.mainContainer}>
+            <p className={styles.username}>{userInfoState.username}</p>
+            <button className={styles.openMenuButton}
+                type="button"
+                onClick={() => { setIsShown(!isShown); }}
+            >
+                <img src={UserIcon} alt="usericon" className={styles.userIcon} />
+            </button>
+            <div className={isShown ? styles.menu : styles.menuHidden}>
+                <button className={styles.navigateToUserSettingsButton}
+                    type="button"
+                    onClick={() => {
+                        void navigate("/user_settings");
+                    }}
+                >
+                    <p className={styles.navigateToUserSettingsButtonText}>Käyttäjäasetukset</p>
+                </button>
+                <button className={styles.logoutButton}
+                    type="button"
+                    onClick={() => { void logoutService(navigate, socket); }}>
+                    Kirjaudu ulos
+                </button>
+            </div>
+        </div>
+    );
+};
+
+export default UserMenu;

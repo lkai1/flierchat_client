@@ -1,0 +1,136 @@
+.openMenuButton {
+    border: none;
+    background-color: rgba(255, 255, 255, 0);
+    cursor: pointer;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 18px;
+    height: 18px;
+    padding: 10px;
+    margin-right: 5px;
+}
+
+.openMenuButtonHidden {
+    display: none;
+}
+
+.iconContainer {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.deleteIcon {
+    fill: rgb(255, 50, 50);
+}
+
+.menuContainer {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(50, 50, 50, 0.3);
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.hiddenMenuContainer {
+    display: none;
+}
+
+.contentContainer {
+    position: absolute;
+    height: fit-content;
+    padding-bottom: 20px;
+    width: 300px;
+    background-color: white;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.topContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.topTitle {
+    margin: 10px;
+    margin-left: 15px;
+    font-size: 20px;
+    font-family: "Quicksand";
+    font-weight: bold;
+}
+
+.closeButton {
+    border-radius: 100px;
+    border: none;
+    height: 40px;
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    margin: 10px;
+    margin-right: 15px;
+    background-color: rgb(240, 240, 240);
+}
+
+.closeButton:hover {
+    background-color: rgb(230, 230, 230);
+}
+
+.closeButtonIcon {
+    fill: rgb(70, 70, 70);
+}
+
+.notificationText {
+    margin: 0;
+    padding: 0;
+    color: rgb(255, 50, 50);
+    font-family: "Quicksand";
+    font-size: 14px;
+    margin-left: 15px;
+    margin-right: 15px;
+    text-align: center;
+}
+
+.deleteButton {
+    width: calc(100% - 30px);
+    border: none;
+    margin-top: 20px;
+    border-radius: 10px;
+    color: white;
+    padding: 10px 15px 10px 15px;
+    font-family: "Quicksand";
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 16px;
+    background-color: rgb(255, 50, 50);
+}
+
+.deleteButton:hover {
+    background-color: rgb(193, 36, 36);
+}
+
+@media only screen and (max-width: 340px) {
+    .contentContainer {
+        width: 260px;
+        top: calc(50% - 100px);
+        left: calc(50% - 130px);
+    }
+}

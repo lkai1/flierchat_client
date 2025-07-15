@@ -1,0 +1,47 @@
+.openMenuButton {
+    height: 45px;
+    width: 45px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    border-radius: 100px;
+    background-color: white;
+    cursor: pointer;
+    border: 2px solid rgb(230, 230, 230);
+}
+
+.openMenuButton:hover {
+    background-color: rgb(240, 240, 240);
+}
+
+.dotsIcon {
+    fill: rgb(20, 20, 20);
+}
+
+.menuContainer {
+    position: absolute;
+    width: 300px;
+    background-color: white;
+    right: 20px;
+    margin-top: 5px;
+    border-radius: 10px;
+    border: 2px solid rgb(210, 210, 210);
+}
+
+.hiddenMenuContainer {
+    display: none;
+}
+
+.contentContainer {
+    width: calc(100% - 30px);
+    padding: 15px;
+}
+
+@media only screen and (max-width: 400px) {
+    .menuContainer {
+        width: 258px;
+        right: 0;
+    }
+}

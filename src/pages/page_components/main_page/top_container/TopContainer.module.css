@@ -1,0 +1,101 @@
+.mainContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(30, 30, 30);
+    height: 90px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.logoContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.logoImg {
+    height: 60px;
+}
+
+@media only screen and (max-width: 700px) {
+    .mainContainer {
+        height: 80px;
+    }
+
+    .logoImg {
+        height: 55px;
+    }
+}
+
+@media only screen and (max-width: 650px) {
+    .mainContainer {
+        height: 70px;
+    }
+
+    .logoImg {
+        height: 40px;
+    }
+}
+
+@media only screen and (max-width: 575px) {
+    .mainContainer {
+        height: 70px;
+    }
+
+    .logoImg {
+        height: 38px;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .mainContainer {
+        height: 65px;
+    }
+
+    .logoImg {
+        height: 36px;
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    .mainContainer {
+        height: 60px;
+    }
+
+    .logoImg {
+        height: 34px;
+    }
+}
+
+@media only screen and (max-width: 390px) {
+    .mainContainer {
+        height: 55px;
+    }
+
+    .logoImg {
+        height: 30px;
+    }
+}
+
+@media only screen and (max-width: 350px) {
+    .mainContainer {
+        height: 50px;
+    }
+
+    .logoImg {
+        height: 28px;
+    }
+}
+
+@media only screen and (max-width: 320px) {
+    .mainContainer {
+        height: 45px;
+    }
+
+    .logoImg {
+        height: 25px;
+    }
+}

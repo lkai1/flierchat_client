@@ -1,0 +1,9 @@
+.mainContainer {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    width: calc(100% - 30px);
+    height: 300px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}

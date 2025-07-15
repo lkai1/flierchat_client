@@ -1,0 +1,276 @@
+.mainContainer {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.warningText {
+    background-color: rgb(255, 50, 50);
+    padding: 10px;
+    border-radius: 10px;
+    color: white;
+    font-family: "Quicksand";
+    font-weight: bold;
+}
+
+.logoImg {
+    width: 420px;
+}
+
+.loginContainer {
+    margin-top: 30px;
+    width: 400px;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: white;
+    padding-bottom: 35px;
+    border: 2px solid rgb(230, 230, 230);
+}
+
+.form {
+    width: 100%;
+}
+
+.formContentContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.headerContainer {
+    width: 100%;
+    background: rgb(30, 30, 30);
+    background: linear-gradient(330deg, rgba(40, 40, 40, 1) 66%, rgba(60, 60, 60, 1) 100%);
+    padding: 14px;
+}
+
+.headerText {
+    font-size: 28px;
+    font-weight: bold;
+    color: white;
+    margin: 0;
+    font-family: 'Quicksand';
+    text-align: center;
+}
+
+.notification {
+    color: rgb(255, 50, 50);
+    font-family: 'Quicksand';
+    margin: 25px 20px 0 20px;
+    font-size: 16px;
+    text-align: center;
+}
+
+.inputsContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.inputField {
+    width: calc(340px - 24px);
+    padding: 13px;
+    font-size: 16px;
+    font-family: 'Quicksand';
+    border-radius: 12px;
+    border: 2px solid rgb(230, 230, 230);
+    outline: none;
+    height: 22px;
+    margin: 15px 20px 0px 20px;
+}
+
+.inputField:hover {
+    border: 2px solid rgb(175, 175, 175);
+}
+
+.submitButton {
+    margin-top: 30px;
+    width: 350px;
+    padding: 14px;
+    font-size: 16px;
+    font-family: 'Quicksand';
+    background-color: rgb(0, 153, 255);
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.submitButton:hover {
+    background-color: rgb(0, 138, 230);
+}
+
+.toRegistrationButton {
+    margin: 0;
+    padding: 0;
+    font-family: 'Quicksand';
+    border: none;
+    background-color: white;
+    text-decoration: underline;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 25px
+}
+
+.toRegistrationButton:hover {
+    color: rgb(0, 153, 255);
+}
+
+@media screen and (max-width: 2000px) {
+    .logoImg {
+        width: 380px;
+    }
+
+    .loginContainer {
+        margin-top: 27px;
+        height: fit-content;
+        width: 360px;
+        padding-bottom: 31px;
+    }
+
+    .headerContainer {
+        padding: 12px;
+    }
+
+    .headerText {
+        font-size: 25px;
+    }
+
+    .notification {
+        margin: 20px 16px 0 16px;
+        font-size: 14px;
+    }
+
+    .inputField {
+        width: calc(306px - 24px);
+        padding: 12px;
+        font-size: 14px;
+        border-radius: 12px;
+        height: 20px;
+        margin: 15px 20px 0px 20px;
+    }
+
+    .guideText {
+        font-size: 13px;
+        height: 18px;
+        margin: 0;
+        margin-top: 18px;
+        margin-bottom: 9px;
+    }
+
+    .submitButton {
+        margin-top: 30px;
+        width: 314px;
+        padding: 14px;
+        font-size: 14px;
+        border-radius: 12px;
+    }
+
+    .toRegisterButton {
+        font-size: 14px;
+        margin-top: 23px
+    }
+}
+
+@media screen and (max-width: 1600px) {
+    .logoImg {
+        width: 320px;
+    }
+
+    .loginContainer {
+        margin-top: 22.5px;
+        height: fit-content;
+        width: 300px;
+        padding-bottom: 26px;
+    }
+
+    .headerContainer {
+        padding: 10px;
+    }
+
+    .headerText {
+        font-size: 21px;
+    }
+
+    .notification {
+        margin: 15px 12px 0 12px;
+        font-size: 12px;
+    }
+
+    .inputField {
+        width: calc(255px - 20px);
+        padding: 10px;
+        font-size: 12px;
+        border-radius: 12px;
+        height: 17px;
+        margin: 15px 20px 0px 20px;
+    }
+
+    .submitButton {
+        margin-top: 20px;
+        width: 262px;
+        padding: 10px;
+        font-size: 12px;
+        border-radius: 12px;
+    }
+
+    .toRegistrationButton {
+        font-size: 12px;
+        margin-top: 19px
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .logoImg {
+        width: 260px;
+    }
+
+    .loginContainer {
+        margin-top: 18px;
+        height: fit-content;
+        width: 240px;
+        padding-bottom: 21px;
+    }
+
+    .headerContainer {
+        padding: 8px;
+    }
+
+    .headerText {
+        font-size: 17px;
+    }
+
+    .notification {
+        margin: 12px 10px 0 10px;
+        font-size: 10px;
+    }
+
+    .inputField {
+        width: calc(201px - 16px);
+        padding: 8px;
+        font-size: 10px;
+        border-radius: 12px;
+        height: 13.5px;
+        margin: 10px 13px 0px 13px;
+    }
+
+    .submitButton {
+        margin-top: 15px;
+        width: 210px;
+        padding: 8px;
+        font-size: 10px;
+        border-radius: 12px;
+    }
+
+    .toRegistrationButton {
+        font-size: 10px;
+        margin-top: 15px
+    }
+}
