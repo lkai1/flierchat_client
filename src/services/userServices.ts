@@ -1,8 +1,8 @@
-import axios from "axios";
+import api from "../api";
 
 export const getUserInfoService = async (): Promise<{ id: string, username: string }> => {
     try {
-        const response = await axios.get<{ id: string, username: string }>("/api/user/user_info", { withCredentials: true });
+        const response = await api.get<{ id: string, username: string }>("/user/user_info", { withCredentials: true });
 
         return response.data;
     } catch {
@@ -13,7 +13,7 @@ export const getUserInfoService = async (): Promise<{ id: string, username: stri
 export const deleteUserService = async (): Promise<{ success: boolean, message: string }> => {
     const result = { success: false, message: "" };
     try {
-        await axios.delete("/api/user", { withCredentials: true });
+        await api.delete("/user", { withCredentials: true });
         result.success = true;
     } catch {
         result.message = "Käyttäjän poistamisessa esiintyi virhe.";

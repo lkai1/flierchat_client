@@ -1,5 +1,5 @@
+import api from "../api.ts";
 import { validateChatId, validateMessage, validateMessageId } from "../utils/validation/messageValidation.ts";
-import axios from "axios";
 
 interface Message {
     id: string;
@@ -11,8 +11,8 @@ interface Message {
 
 export const getChatMessagesService = async (chatId: string): Promise<Message[] | []> => {
     try {
-        const response = await axios.get<Message[]>(
-            "/api/message",
+        const response = await api.get<Message[]>(
+            "/message",
             { params: { chatId }, withCredentials: true }
         );
 
@@ -34,7 +34,7 @@ export const createMessageService = async (chatId: string, message: string): Pro
             return result;
         }
         //check what response comes from backend and correct the type
-        const response = await axios.post<string>("/api/message",
+        const response = await api.post<string>("/message",
             {
                 message,
                 chatId
@@ -62,7 +62,7 @@ export const deleteAllUserMessagesFromChatService = async (chatId: string): Prom
             return result;
         }
 
-        await axios.delete<string>("/api/message/all_from_user", {
+        await api.delete<string>("/message/all_from_user", {
             data: {
                 chatId
             },
@@ -85,7 +85,7 @@ export const deleteUserMessageService = async (messageId: string): Promise<{ suc
             return result;
         }
 
-        await axios.delete("/api/message", {
+        await api.delete("/message", {
             data: {
                 messageId
             },

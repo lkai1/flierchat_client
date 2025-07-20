@@ -1,4 +1,5 @@
-import axios from "axios";
+import { isAxiosError } from "axios";
+import api from "../api.ts";
 import { validateChatId, validateChatName, validateChatParticipantId, validateUsername } from "../utils/validation/chatValidation.ts";
 
 //check correct type
@@ -24,7 +25,7 @@ interface Chat {
 
 export const getUserChatsService = async (): Promise<Chat[]> => {
     try {
-        const response = await axios.get<Chat[]>("http://localhost:5000/api/chat", {
+        const response = await api.get<Chat[]>("/chat", {
             withCredentials: true
         });
         console.log(response.data);
@@ -43,7 +44,7 @@ export const createPrivateChatService = async (participantUsername: string): Pro
             return result;
         }
 
-        const response = await axios.post<string>("/api/chat/private",
+        const response = await api.post<string>("/chat/private",
             { participantUsername },
             { withCredentials: true }
         );
@@ -52,7 +53,7 @@ export const createPrivateChatService = async (participantUsername: string): Pro
         result.message = "Yksityiskeskustelun luonti onnistui.";
         result.data = response.data;
     } catch (error) {
-        if (axios.isAxiosError(error)) {
+        if (isAxiosError(error)) {
             if (error.response?.status === 400) {
                 result.message = "Tarkista oikeinkirjoitus.";
             } else if (error.response?.status === 403) {
@@ -79,7 +80,7 @@ export const createGroupChatService = async (chatName: string): Promise<{ succes
             return result;
         }
 
-        const response = await axios.post<string>("http://localhost:5000/api/chat/group",
+        const response = await api.post<string>("/chat/group",
             { chatName },
             { withCredentials: true }
         );
@@ -88,7 +89,7 @@ export const createGroupChatService = async (chatName: string): Promise<{ succes
         result.data = response.data;
     } catch (error) {
         console.log(error);
-        if (axios.isAxiosError(error)) {
+        if (isAxiosError(error)) {
             if (error.response?.status === 400) {
                 result.message = "Tarkista oikeinkirjoitus.";
             } else if (error.response?.status === 403) {
@@ -118,7 +119,7 @@ export const addGroupChatParticipantService = async (chatId: string, participant
             return result;
         }
 
-        const response = await axios.post<string>("/api/chat/group/participant",
+        const response = await api.post<string>("/chat/group/participant",
             { chatId, participantUsername },
             { withCredentials: true }
         );
@@ -127,7 +128,7 @@ export const addGroupChatParticipantService = async (chatId: string, participant
         result.message = "Uusi käyttäjä lisätty keskusteluun.";
         result.data = response.data;
     } catch (error) {
-        if (axios.isAxiosError(error)) {
+        if (isAxiosError(error)) {
             if (error.response?.status === 403) {
                 result.message = "Et voi lisätä käyttäjää tähän keskusteluun!";
             } else if (error.response?.status === 404) {
@@ -157,14 +158,14 @@ export const removeChatParticipantService = async (chatId: string, participantId
             return result;
         }
 
-        const response = await axios.delete<{ chatId: string, participantId: string }>("/api/chat/participant", {
+        const response = await api.delete<{ chatId: string, participantId: string }>("/chat/participant", {
             data: { chatId, participantId },
             withCredentials: true
         });
         result.success = true;
         result.data = response.data;
     } catch (error) {
-        if (axios.isAxiosError(error)) {
+        if (isAxiosError(error)) {
             if (error.response?.status === 403) {
                 result.message = "Keskustelun luojana voit poistua vain poistamalla keskustelun.";
             } else if (error.response?.status === 401) {
@@ -189,14 +190,14 @@ export const deleteChatService = async (chatId: string): Promise<{ success: bool
             return result;
         }
 
-        await axios.delete<string>("/api/chat", {
+        await api.delete<string>("/chat", {
             data: { chatId },
             withCredentials: true
         });
 
         result.success = true;
     } catch (error) {
-        if (axios.isAxiosError(error)) {
+        if (isAxiosError(error)) {
             if (error.response?.status === 403) {
                 result.message = "Et voi poistaa chattia.";
             } else if (error.response?.status === 404) {
@@ -219,7 +220,7 @@ export const getUnreadMessagesAmountInChatService = async (chatId: string): Prom
             return result;
         }
 
-        const response = await axios.get<number>("http://localhost:5000/api/chat/unread_messages", {
+        const response = await api.get<number>("/chat/unread_messages", {
             params: { chatId },
             withCredentials: true
         });
@@ -242,14 +243,14 @@ export const updateUnreadMessagesAmountInChatService = async (chatId: string): P
             return result;
         }
 
-        await axios.patch("/api/chat/unread_messages",
+        await api.patch("/chat/unread_messages",
             { chatId },
             { withCredentials: true }
         );
 
         result.success = true;
     } catch (error) {
-        if (axios.isAxiosError(error)) {
+        if (isAxiosError(error)) {
             if (error.response?.status === 403) {
                 result.message = "Et ole chatin osallistuja. Kokeile päivittää sivu";
             } else if (error.response?.status === 404) {

@@ -1,6 +1,7 @@
-import axios, { AxiosResponse } from 'axios';
+import { AxiosResponse, isAxiosError } from 'axios';
 import { validateUsername, validatePassword } from '../utils/validation/authValidation.ts';
 import { NavigateFunction } from 'react-router';
+import api from '../api.ts';
 
 export const loginService = async (loginCreds: { username: string, password: string }): Promise<{
     success: boolean,
@@ -14,7 +15,7 @@ export const loginService = async (loginCreds: { username: string, password: str
             return result;
         }
 
-        const response: AxiosResponse = await axios.post("http://localhost:5000/api/auth/login", {
+        const response: AxiosResponse = await api.post("/auth/login", {
             username: loginCreds.username,
             password: loginCreds.password,
         }, {
@@ -25,7 +26,7 @@ export const loginService = async (loginCreds: { username: string, password: str
             result.success = true;
         }
     } catch (error) {
-        if (axios.isAxiosError(error) && error.response?.status === 400) {
+        if (isAxiosError(error) && error.response?.status === 400) {
             result.message = "Wrong username or password.";
         } else {
             result.message = "Something went wrong. Try again later.";
@@ -48,7 +49,7 @@ export const registerService = async (registerCreds: {
             return result;
         }
 
-        const response: AxiosResponse = await axios.post("http://localhost:5000/api/auth/register", {
+        const response: AxiosResponse = await api.post("/auth/register", {
             username: registerCreds.username,
             password: registerCreds.password,
             password2: registerCreds.password2
@@ -58,7 +59,7 @@ export const registerService = async (registerCreds: {
             result.success = true;
         }
     } catch (error) {
-        if (axios.isAxiosError(error)) {
+        if (isAxiosError(error)) {
             if (error.response?.status === 400) {
                 result.message = "Tarkista tietojen oikeinkirjoitus.";
             } else if (error.response?.status === 403) {
@@ -74,7 +75,7 @@ export const registerService = async (registerCreds: {
 export const logoutService = async (navigate: NavigateFunction,): Promise<{ success: boolean, message: string }> => {
     //removed navigate from here so fix where this function is used
     try {
-        await axios.post('/api/auth/logout', {}, { withCredentials: true });
+        await api.post('/auth/logout', {}, { withCredentials: true });
         await navigate("/login");
         return { success: true, message: "" };
     } catch {
@@ -84,7 +85,7 @@ export const logoutService = async (navigate: NavigateFunction,): Promise<{ succ
 
 export const verifyLoginService = async (): Promise<{ success: boolean, message: string }> => {
     try {
-        await axios.get("http://localhost:5000/api/auth/verify_login", { withCredentials: true });
+        await api.get("/auth/verify_login", { withCredentials: true });
         return { success: true, message: "" };
     } catch {
         return { success: false, message: "Login verification failed." };
