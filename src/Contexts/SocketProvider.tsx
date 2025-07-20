@@ -8,7 +8,7 @@ import { SocketContext } from "./SocketContext.ts";
 
 //make sure this is correct with cookies and cors and separate backend app
 //it is most likely now wrong
-const socket = io("/", { autoConnect: false, withCredentials: true });
+const socket = io("http://localhost:5000", { autoConnect: false, withCredentials: true });
 
 const SocketProvider = (
     { children }: { children: React.JSX.Element }
@@ -26,9 +26,14 @@ const SocketProvider = (
     const { userInfoState } = useContext(UserInfoContext);
 
     useEffect(() => {
-        //how to make it work with cookies?
-        /* socket.auth = { token: getAuthToken() }; */
-        socket.connect();
+        if (!socket.connected) {
+            socket.connect();
+        }
+
+        return (): void => {
+            if (socket.connected) { socket.disconnect(); }
+            socket.off();
+        };
     }, []);
 
     useEffect(() => {
@@ -114,20 +119,7 @@ const SocketProvider = (
         });
 
         return (): void => {
-            socket.disconnect();
-            socket.off("userDisconnected");
-            socket.off("userConnected");
-            socket.off("onlineUsers");
-            socket.off("message");
-            socket.off("messageDelete");
-            socket.off("messageDeleteAll");
-            socket.off("userDelete");
-            socket.off("chatParticipantDelete");
-            socket.off("chatParticipantRemove");
-            socket.off("chatParticipantAdd");
-            socket.off("chatCreate");
-            socket.off("emptySelectedChat");
-            socket.off("chatDelete");
+            socket.removeAllListeners();
         };
     }, [addSelectedChatParticipant, deleteSelectedChatParticipant, emptySelectedChatState, selectedChatState, setSelectedChatState, updateChatList, userInfoState]);
 

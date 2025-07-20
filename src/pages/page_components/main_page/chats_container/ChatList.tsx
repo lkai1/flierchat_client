@@ -5,23 +5,21 @@ import React, { useEffect, useState } from "react";
 import { getUnreadMessagesAmountInChatService } from "../../../../services/chatServices.js";
 
 interface Chat {
-    Chat: {
+    id: string;
+    chatName: string;
+    chatParticipants: {
         id: string;
-        chatName: string;
-        chatParticipants: {
-            id: string;
-            username: string;
-        }[];
-        creatorId: string;
-        isGroup: boolean | null;
-        messages: {
-            id: string;
-            value: string;
-            timestamp: string;
-            chatId: string;
-            messageCreator: { id: string, username: string }
-        }[];
-    }
+        username: string;
+    }[];
+    creatorId: string;
+    isGroup: boolean | null;
+    messages: {
+        id: string;
+        value: string;
+        timestamp: string;
+        chatId: string;
+        messageCreator: { id: string, username: string }
+    }[];
 }
 
 const ChatList = ({ chats, loading }: { chats: Chat[], loading: boolean }): React.JSX.Element => {
@@ -33,12 +31,12 @@ const ChatList = ({ chats, loading }: { chats: Chat[], loading: boolean }): Reac
 
             if (chats.length > 0) {
                 for (let i = 0; i < chats.length; i++) {
-                    const unreadMessagesAmountInChat = await getUnreadMessagesAmountInChatService(chats[i].Chat.id);
+                    const unreadMessagesAmountInChat = await getUnreadMessagesAmountInChatService(chats[i].id);
 
                     chatItemsList.push(
                         <ChatItem
                             key={uuidv4()}
-                            chat={chats[i].Chat}
+                            chat={chats[i]}
                             unreadMessagesAmount={unreadMessagesAmountInChat.data}
                             isFirst={i === 0}
                             isLast={i === chats.length - 1}

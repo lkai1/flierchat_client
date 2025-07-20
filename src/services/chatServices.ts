@@ -28,7 +28,7 @@ export const getUserChatsService = async (): Promise<Chat[]> => {
         const response = await api.get<Chat[]>("/chat", {
             withCredentials: true
         });
-        console.log(response.data);
+
         return response.data;
     } catch {
         return [];
@@ -88,7 +88,7 @@ export const createGroupChatService = async (chatName: string): Promise<{ succes
         result.message = "Ryhmäkeskustelun luonti onnistui.";
         result.data = response.data;
     } catch (error) {
-        console.log(error);
+
         if (isAxiosError(error)) {
             if (error.response?.status === 400) {
                 result.message = "Tarkista oikeinkirjoitus.";

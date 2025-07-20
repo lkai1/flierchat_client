@@ -18,7 +18,6 @@ const AuthRoute = ({ children }: { children: React.JSX.Element; }): React.JSX.El
         };
         void getData();
     }, [socket]);
-    console.log(verifiedLogin);
 
     if (verifiedLogin === null) { return <div>Loading...</div>; }
 
