@@ -14,7 +14,13 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    
+    background-color: rgb(0, 153, 255);
+    padding: 14px;
+    border-radius: 12px;
+}
+
+.openMenuButton:hover {
+    background-color: rgb(0, 138, 230);
 }
 
 .menu {
@@ -39,7 +45,7 @@
     font-family: "Oswald";
     font-size: 24px;
     margin-right: 10px;
-    color: rgb(120, 120, 120);
+    color: white;
     font-weight: bold;
     overflow: hidden;
     text-overflow: ellipsis;
