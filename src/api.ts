@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const api = axios.create({
     //production
-    baseURL: "flierchatserver-production.up.railway.app:5000"
+    baseURL: "https://flierchatserver-production.up.railway.app/api"
     //development
     /* baseURL: "http://localhost:5000/api", */
 });
