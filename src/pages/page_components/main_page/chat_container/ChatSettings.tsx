@@ -5,7 +5,7 @@ import { SelectedChatContext } from "../../../../Contexts/SelectedChatContext.ts
 import { UserInfoContext } from "../../../../Contexts/UserInfoContext.ts";
 import ParticipantsMenu from "./chat_settings/participants_menu/ParticipantsMenu.tsx";
 import MoreSettingsMenu from "./chat_settings/more_settings_menu/MoreSettingsMenu.tsx";
-import ArrowLeftIcon from "../../../../lib/icons/arrowLeftIcon.svg";
+import ArrowLeftIcon from "../../../../lib/icons/arrowLeftIcon.svg?react";
 
 const ChatSettingButtons = (): React.JSX.Element => {
 
@@ -24,7 +24,7 @@ const ChatSettingButtons = (): React.JSX.Element => {
                         className={styles.toChatListButton}
                         onClick={() => { emptySelectedChatState(); }}
                     >
-                        <img src={ArrowLeftIcon} alt="arrowlefticon" className={styles.arrowLeftIcon} />
+                        <ArrowLeftIcon className={styles.arrowLeftIcon} />
                     </button>
 
                     {showAddParticipantMenu && <AddParticipantMenu />}

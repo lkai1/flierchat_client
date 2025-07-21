@@ -1,5 +1,4 @@
 import styles from "./UserMenu.module.css";
-import UserIcon from "../../../../lib/icons/userIcon.svg";
 import React, { useContext, useState } from "react";
 import { UserInfoContext } from "../../../../Contexts/UserInfoContext.ts";
 import { logoutService } from "../../../../services/authServices.ts";
@@ -13,12 +12,11 @@ const UserMenu = (): React.JSX.Element => {
 
     return (
         <div className={styles.mainContainer}>
-            <p className={styles.username}>{userInfoState.username}</p>
             <button className={styles.openMenuButton}
                 type="button"
                 onClick={() => { setIsShown(!isShown); }}
             >
-                <img src={UserIcon} alt="usericon" className={styles.userIcon} />
+                <p className={styles.username}>{userInfoState.username}</p>
             </button>
             <div className={isShown ? styles.menu : styles.menuHidden}>
                 <button className={styles.navigateToUserSettingsButton}

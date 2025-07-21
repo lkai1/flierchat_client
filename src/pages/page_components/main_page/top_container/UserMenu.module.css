@@ -7,37 +7,14 @@
     z-index: 3;
 }
 
-.username {
-    margin: 0px;
-    font-family: "Quicksand";
-    font-size: 28px;
-    margin-right: 10px;
-    color: rgb(245, 245, 245);
-    font-weight: bold;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
 .openMenuButton {
-    background-color: rgb(42, 42, 42);
-    border-radius: 100px;
-    height: 50px;
-    width: 50px;
+    background: none;
+    border: none;
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
     cursor: pointer;
-    border: 0;
-}
-
-.openMenuButton:hover {
-    background-color: rgb(48, 48, 48);
-}
-
-.userIcon {
-    fill: rgb(0, 138, 230);
+    
 }
 
 .menu {
@@ -57,6 +34,18 @@
     display: none;
 }
 
+.username {
+    margin: 0px;
+    font-family: "Oswald";
+    font-size: 24px;
+    margin-right: 10px;
+    color: rgb(120, 120, 120);
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 .navigateToUserSettingsButton {
     border: none;
     width: 100%;
@@ -70,7 +59,7 @@
 
 .navigateToUserSettingsButtonText {
     width: 100%;
-    font-family: "Quicksand";
+    font-family: "Oswald";
     font-size: 16px;
     font-weight: bold;
     margin: 0;
@@ -93,7 +82,7 @@
     align-items: center;
     cursor: pointer;
     color: white;
-    font-family: "Quicksand";
+    font-family: "Oswald";
     font-size: 16px;
     font-weight: bold;
 }

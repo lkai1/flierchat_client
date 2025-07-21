@@ -2,7 +2,7 @@ import styles from "./ChatsContainer.module.css";
 import ChatList from "./ChatList.tsx";
 import CreateNewChatModal from "./CreateNewChatModal.tsx";
 import React, { useState, useContext, useEffect } from "react";
-import AddIcon from "../../../../lib/icons/addIcon.svg";
+import AddIcon from "../../../../lib/icons/addIcon.svg?react";
 import { getUserChatsService } from "../../../../services/chatServices.js";
 import { SocketContext } from "../../../../Contexts/SocketContext.ts";
 
@@ -57,7 +57,7 @@ const ChatsContainer = (): React.JSX.Element => {
                     type="button"
                     onClick={() => { setShowCreateNewChatModal(true); }}
                 >
-                    <img src={AddIcon} alt="addicon" className={styles.addChatButtonImg} />
+                    <AddIcon className={styles.addChatButtonImg} />
                     <p>Luo uusi keskustelu </p>
                 </button>
             </div>

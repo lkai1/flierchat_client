@@ -1,7 +1,7 @@
 import styles from "./ParticipantsMenu.module.css";
 import React, { useState } from "react";
-import CloseIcon from "../../../../../../lib/icons/closeIcon.svg";
-import GroupIcon from "../../../../../../lib/icons/groupIcon.svg";
+import CloseIcon from "../../../../../../lib/icons/closeIcon.svg?react";
+import GroupIcon from "../../../../../../lib/icons/groupIcon.svg?react";
 import ParticipantList from "./ParticipantList.tsx";
 
 const ParticipantsMenu = (): React.JSX.Element => {
@@ -14,7 +14,7 @@ const ParticipantsMenu = (): React.JSX.Element => {
                 onClick={() => { setIsMenuShown(!isMenuShown); }}
                 title="Lisää käyttäjä"
             >
-                <img src={GroupIcon} alt="groupicon" className={styles.groupIcon} />
+                <GroupIcon className={styles.groupIcon} />
             </button>
             <div className={isMenuShown ? styles.menuContainer : styles.hiddenMenuContainer}>
                 <div className={styles.contentContainer}>
@@ -24,7 +24,7 @@ const ParticipantsMenu = (): React.JSX.Element => {
                             type="button"
                             onClick={() => { setIsMenuShown(false); }}
                         >
-                            <img src={CloseIcon} alt="closeicon" className={styles.closeIcon} />
+                            <CloseIcon className={styles.closeIcon} />
                         </button>
                     </div>
                     <div className="participantListContainer">

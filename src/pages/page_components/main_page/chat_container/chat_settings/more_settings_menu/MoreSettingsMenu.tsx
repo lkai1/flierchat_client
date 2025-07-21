@@ -1,5 +1,5 @@
 import styles from "./MoreSettingsMenu.module.css";
-import DotsIcon from "../../../../../../lib/icons/dotsIcon.svg";
+import DotsIcon from "../../../../../../lib/icons/dotsIcon.svg?react";
 import React, { useState, useContext } from "react";
 import DeleteChatMenu from "./DeleteChatMenu.tsx";
 import { SelectedChatContext } from "../../../../../../Contexts/SelectedChatContext.ts";
@@ -24,7 +24,7 @@ const MoreSettingsMenu = (): React.JSX.Element => {
                 onClick={() => { setIsMenuShown(!isMenuShown); }}
                 title="Lisää valintoja"
             >
-                <img src={DotsIcon} alt="dotsicon" className={styles.dotsIcon} />
+                <DotsIcon className={styles.dotsIcon} />
             </button>
             <div className={isMenuShown ? styles.menuContainer : styles.hiddenMenuContainer}>
                 <div className={styles.contentContainer}>

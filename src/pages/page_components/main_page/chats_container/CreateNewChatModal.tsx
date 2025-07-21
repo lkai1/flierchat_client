@@ -1,6 +1,6 @@
 import styles from "./CreateNewChatModal.module.css";
 import React, { useContext, useState } from "react";
-import CloseIcon from "../../../../lib/icons/closeIcon.svg";
+import CloseIcon from "../../../../lib/icons/closeIcon.svg?react";
 import { createPrivateChatService, createGroupChatService } from "../../../../services/chatServices.ts";
 import { SocketContext } from "../../../../Contexts/SocketContext.ts";
 
@@ -47,7 +47,7 @@ const CreateNewChatModal = ({ isShown, setIsShown }: { isShown: boolean, setIsSh
                             emptyChatCreationValues();
                         }}
                     >
-                        <img src={CloseIcon} alt="closeicon" className={styles.closeButtonImg} />
+                        <CloseIcon className={styles.closeButtonImg} />
                     </button>
                 </div>
                 <p className={notification.color === 1 ? styles.notificationText : styles.notificationErrorText}>{notification.value}</p>

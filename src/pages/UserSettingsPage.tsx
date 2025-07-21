@@ -2,10 +2,10 @@ import styles from "./UserSettingsPage.module.css";
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { deleteUserService } from "../services/userServices.js";
-import DeleteIcon from "../lib/icons/deleteIcon.svg";
-import CloseIcon from "../lib/icons/closeIcon.svg";
+import DeleteIcon from "../lib/icons/deleteIcon.svg?react";
+import CloseIcon from "../lib/icons/closeIcon.svg?react";
 import { logoutService } from "../services/authServices.js";
-import ArrowLeftIcon from "../lib/icons/arrowLeftIcon.svg";
+import ArrowLeftIcon from "../lib/icons/arrowLeftIcon.svg?react";
 import { SocketContext } from "../Contexts/SocketContext.ts";
 import { getUserChatsService } from "../services/chatServices.js";
 
@@ -37,7 +37,7 @@ const UserSettingsPage = (): React.JSX.Element => {
             >
                 <div className={styles.navigateToMainPageButtonIcon}>
                     <div className={styles.iconContainer}>
-                        <img src={ArrowLeftIcon} className={styles.navigateToMainPageButtonIconImg} />
+                        <ArrowLeftIcon className={styles.navigateToMainPageButtonIconImg} />
                     </div>
                 </div>
                 <p className={styles.navigateToMainPageButtonText}>Takaisin keskusteluihin</p>
@@ -50,7 +50,7 @@ const UserSettingsPage = (): React.JSX.Element => {
                     <p className={styles.openMenuButtonText}>Poista käyttäjätili</p>
                     <div className={styles.openMenuButtonIcon}>
                         <div className={styles.iconContainer}>
-                            <img src={DeleteIcon} className={styles.openMenuButtonImg} />
+                            <DeleteIcon className={styles.openMenuButtonImg} />
                         </div>
                     </div>
                 </button>
@@ -63,7 +63,7 @@ const UserSettingsPage = (): React.JSX.Element => {
                             type="button"
                             onClick={() => { setIsMenuShown(false); }}
                         >
-                            <img src={CloseIcon} className={styles.closeButtonImg} />
+                            <CloseIcon className={styles.closeButtonImg} />
                         </button>
                     </div>
                     <p className={styles.notificationText}>{notification}</p>

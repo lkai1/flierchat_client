@@ -1,8 +1,8 @@
 import styles from "./ChatItem.module.css";
 import { UserInfoContext } from "../../../../Contexts/UserInfoContext.ts";
 import React, { useContext } from "react";
-import GroupIcon from "../../../../lib/icons/groupIcon.svg";
-import UserIcon from "../../../../lib/icons/userIcon.svg";
+import GroupIcon from "../../../../lib/icons/groupIcon.svg?react";
+import UserIcon from "../../../../lib/icons/userIcon.svg?react";
 import { SelectedChatContext } from "../../../../Contexts/SelectedChatContext.ts";
 import { SocketContext } from "../../../../Contexts/SocketContext.ts";
 
@@ -46,7 +46,7 @@ const ChatItem = ({ chat, unreadMessagesAmount, isFirst, isLast }: { chat: Chat,
     };
 
     const chatType = chatIsGroup ? "Ryhmä" : "Yksityinen";
-    const chatIcon = chatIsGroup ? <img src={GroupIcon} alt="groupicon" className={styles.chatIconImg} /> : <img src={UserIcon} alt="usericon" className={styles.chatIconImg} />;
+    const chatIcon = chatIsGroup ? <GroupIcon className={styles.chatIconImg} /> : <UserIcon className={styles.chatIconImg} />;
 
     const chatHasOtherOnlineUsers = chat.chatParticipants.find((participant) => {
         return userInfoState.id !== participant.id && onlineUserIds.includes(participant.id);

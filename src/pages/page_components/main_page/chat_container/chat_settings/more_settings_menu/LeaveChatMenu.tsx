@@ -1,5 +1,5 @@
 import styles from "./LeaveChatMenu.module.css";
-import CloseIcon from "../../../../../../lib/icons/closeIcon.svg";
+import CloseIcon from "../../../../../../lib/icons/closeIcon.svg?react";
 import React, { useContext, useState } from "react";
 import { SelectedChatContext } from "../../../../../../Contexts/SelectedChatContext.ts";
 import { removeChatParticipantService } from "../../../../../../services/chatServices.ts";
@@ -40,7 +40,7 @@ const LeaveChatMenu = (): React.JSX.Element => {
                             type="button"
                             onClick={() => { setIsMenuShown(false); }}
                         >
-                            <img src={CloseIcon} alt="closeicon" className={styles.closeIcon} />
+                            <CloseIcon className={styles.closeIcon} />
                         </button>
                     </div>
                     <p className={styles.notificationText}>{notification}</p>

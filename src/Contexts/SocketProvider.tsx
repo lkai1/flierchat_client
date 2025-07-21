@@ -73,6 +73,7 @@ const SocketProvider = (
         });
 
         socket.on("messageDelete", (messageId) => {
+            //socket part doesnt work
             setSelectedChatState(prevState => {
                 return { ...prevState, messages: [...prevState.messages.filter((message) => { return message.id !== messageId; })] };
             });

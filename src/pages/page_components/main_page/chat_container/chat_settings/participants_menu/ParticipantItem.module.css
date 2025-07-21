@@ -60,7 +60,7 @@
 
 .creatorText {
     margin: 0;
-    font-family: "Quicksand";
+    font-family: "Oswald";
     font-size: 12px;
     font-weight: bold;
     color: rgb(180, 180, 180);
@@ -68,7 +68,7 @@
 
 .username {
     display: inline-block;
-    font-family: "Quicksand";
+    font-family: "Oswald";
     margin: 0;
     width: 140px;
     font-size: 16px;

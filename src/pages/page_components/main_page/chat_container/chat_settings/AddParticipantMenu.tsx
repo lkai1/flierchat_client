@@ -1,7 +1,7 @@
 import styles from "./AddParticipantMenu.module.css";
 import React, { useContext, useState } from "react";
-import AddIcon from "../../../../../lib/icons/addIcon.svg";
-import CloseIcon from "../../../../../lib/icons/closeIcon.svg";
+import AddIcon from "../../../../../lib/icons/addIcon.svg?react";
+import CloseIcon from "../../../../../lib/icons/closeIcon.svg?react";
 import { UserInfoContext } from "../../../../../Contexts/UserInfoContext.ts";
 import { SelectedChatContext } from "../../../../../Contexts/SelectedChatContext.ts";
 import { addGroupChatParticipantService } from "../../../../../services/chatServices.ts";
@@ -32,7 +32,7 @@ const AddParticipantMenu = (): React.JSX.Element => {
                 onClick={() => { setIsMenuShown(!isMenuShown); }}
                 title="Lisää käyttäjä"
             >
-                <img src={AddIcon} alt="addicon" className={styles.addIcon} />
+                <AddIcon className={styles.addIcon} />
             </button>
             <div className={isMenuShown ? styles.menuContainer : styles.hiddenMenuContainer}>
                 <div className={styles.contentContainer}>
@@ -42,7 +42,7 @@ const AddParticipantMenu = (): React.JSX.Element => {
                             type="button"
                             onClick={() => { setIsMenuShown(false); }}
                         >
-                            <img src={CloseIcon} alt="closeicon" className={styles.closeIcon} />
+                            <CloseIcon className={styles.closeIcon} />
                         </button>
                     </div>
                     <p className={notification.color === 1 ? styles.notificationText : styles.notificationErrorText}>{notification.value}</p>

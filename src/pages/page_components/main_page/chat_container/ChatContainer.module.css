@@ -16,7 +16,7 @@
 
 .chatTypeText {
     margin: 0;
-    font-family: "Quicksand";
+    font-family: "Oswald";
     font-size: 17px;
     font-weight: bold;
     color: rgb(180, 180, 180);
@@ -24,7 +24,7 @@
 
 .chatTitleText {
     margin: 0;
-    font-family: "Quicksand";
+    font-family: "Oswald";
     font-size: 17px;
     font-weight: bold;
     color: rgb(60, 60, 60);
@@ -48,7 +48,7 @@
 
 .notificationShown {
     color: rgb(255, 50, 50);
-    font-family: 'Quicksand';
+    font-family: 'Oswald';
     padding-top: 10px;
     margin: 0;
     font-size: 14px;
@@ -63,7 +63,7 @@
     height: 30px;
     padding: 10px 10px 10px 20px;
     font-size: 16px;
-    font-family: "Quicksand";
+    font-family: "Oswald";
     background-color: white;
 }
 
@@ -71,7 +71,7 @@
     padding: 0px 15px 0px 15px;
     height: 50px;
     font-size: 16px;
-    font-family: 'Quicksand';
+    font-family: 'Oswald';
     background-color: rgb(0, 153, 255);
     color: white;
     font-weight: bold;

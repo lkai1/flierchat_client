@@ -1,7 +1,7 @@
 import styles from "./DeleteMessageMenu.module.css";
-import DeleteIcon from "../../../../../lib/icons/deleteIcon.svg";
+import DeleteIcon from "../../../../../lib/icons/deleteIcon.svg?react";
 import { deleteUserMessageService } from "../../../../../services/messageServices.ts";
-import CloseIcon from "../../../../../lib/icons/closeIcon.svg";
+import CloseIcon from "../../../../../lib/icons/closeIcon.svg?react";
 import React, { useContext, useState } from "react";
 import { SocketContext } from "../../../../../Contexts/SocketContext.ts";
 
@@ -30,7 +30,7 @@ const DeleteMessageMenu = ({ messageId, chatId, isHovered }:
                 onClick={() => { setIsMenuShown(!isMenuShown); }}
             >
                 <div className={styles.iconContainer}>
-                    <img src={DeleteIcon} alt="deleteicon" className={styles.deleteIcon} />
+                    <DeleteIcon className={styles.deleteIcon} />
                 </div>
             </button>
             <div className={isMenuShown ? styles.menuContainer : styles.hiddenMenuContainer}>
@@ -41,7 +41,7 @@ const DeleteMessageMenu = ({ messageId, chatId, isHovered }:
                             type="button"
                             onClick={() => { setIsMenuShown(false); }}
                         >
-                            <img src={CloseIcon} alt="closeicon" className={styles.closeIcon} />
+                            <CloseIcon className={styles.closeIcon} />
                         </button>
                     </div>
                     <p className={styles.notificationText}>{notification}</p>

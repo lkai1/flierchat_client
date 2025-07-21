@@ -1,6 +1,6 @@
 import styles from "./DeleteChatMenu.module.css";
-import DeleteIcon from "../../../../../../lib/icons/deleteIcon.svg";
-import CloseIcon from "../../../../../../lib/icons/closeIcon.svg";
+import DeleteIcon from "../../../../../../lib/icons/deleteIcon.svg?react";
+import CloseIcon from "../../../../../../lib/icons/closeIcon.svg?react";
 import React, { useContext, useState } from "react";
 import { SelectedChatContext } from "../../../../../../Contexts/SelectedChatContext.ts";
 import { deleteChatService } from "../../../../../../services/chatServices.ts";
@@ -51,7 +51,7 @@ const DeleteChatMenu = (): React.JSX.Element => {
                 <p className={styles.openMenuButtonText}>Poista keskustelu</p>
                 <div className={styles.openMenuButtonIcon}>
                     <div className={styles.iconContainer}>
-                        <img src={DeleteIcon} alt="deleteicon" className={styles.deleteIcon} />
+                        <DeleteIcon className={styles.deleteIcon} />
                     </div>
                 </div>
             </button>
@@ -63,7 +63,7 @@ const DeleteChatMenu = (): React.JSX.Element => {
                             type="button"
                             onClick={() => { setIsMenuShown(false); }}
                         >
-                            <img src={CloseIcon} alt="closeicon" className={styles.closeIcon} />
+                            <CloseIcon className={styles.closeIcon} />
                         </button>
                     </div>
                     <p className={styles.notificationText}>{notification}</p>
