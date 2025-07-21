@@ -8,7 +8,12 @@ import { SocketContext } from "./SocketContext.ts";
 
 //make sure this is correct with cookies and cors and separate backend app
 //it is most likely now wrong
-const socket = io("http://localhost:5000", { autoConnect: false, withCredentials: true });
+const socket = io(
+    //production
+    "https://flierchatserver-production.up.railway.app",
+    //development
+    /* "http://localhost:5000", */
+    { autoConnect: false, withCredentials: true });
 
 const SocketProvider = (
     { children }: { children: React.JSX.Element }
