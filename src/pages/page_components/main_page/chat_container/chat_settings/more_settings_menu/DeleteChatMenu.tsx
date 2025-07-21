@@ -36,7 +36,7 @@ const DeleteChatMenu = (): React.JSX.Element => {
         const result = await deleteChatService(chat.id);
         if (result.success) {
             setIsMenuShown(false);
-            socket.emit("chatDelete", { participantIds });
+            socket.emit("chatDelete", { chatId: chat.id, participantIds });
         } else {
             setNotification(result.message);
         }

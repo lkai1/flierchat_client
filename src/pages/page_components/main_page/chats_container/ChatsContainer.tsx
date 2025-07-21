@@ -61,7 +61,7 @@ const ChatsContainer = (): React.JSX.Element => {
                     <p>Luo uusi keskustelu </p>
                 </button>
             </div>
-            < CreateNewChatModal
+            <CreateNewChatModal
                 isShown={showCreateNewChatModal}
                 setIsShown={setShowCreateNewChatModal}
             />

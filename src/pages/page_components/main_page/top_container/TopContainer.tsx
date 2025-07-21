@@ -14,7 +14,7 @@ const TopContainer = (): React.JSX.Element => {
                     className={styles.logoImg}
                 />
             </div>
-            < UserMenu />
+            <UserMenu />
         </div>
     );
 };
