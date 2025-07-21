@@ -7,23 +7,21 @@ import { getUserChatsService } from "../../../../services/chatServices.js";
 import { SocketContext } from "../../../../Contexts/SocketContext.ts";
 
 interface Chat {
-    Chat: {
+    id: string;
+    chatName: string;
+    chatParticipants: {
         id: string;
-        chatName: string;
-        chatParticipants: {
-            id: string;
-            username: string;
-        }[];
-        creatorId: string;
-        isGroup: boolean | null;
-        messages: {
-            id: string;
-            value: string;
-            timestamp: string;
-            chatId: string;
-            messageCreator: { id: string, username: string };
-        }[];
-    }
+        username: string;
+    }[];
+    creatorId: string;
+    isGroup: boolean | null;
+    messages: {
+        id: string;
+        value: string;
+        timestamp: string;
+        chatId: string;
+        messageCreator: { id: string, username: string };
+    }[];
 }
 
 const ChatsContainer = (): React.JSX.Element => {
