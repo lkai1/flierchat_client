@@ -13,7 +13,7 @@ const socket = io(
     "https://flierchatserver-production.up.railway.app",
     //development
     /* "http://localhost:5000", */
-    { autoConnect: false, withCredentials: true });
+    { autoConnect: false, transports: ["websocket"], withCredentials: true });
 
 const SocketProvider = (
     { children }: { children: React.JSX.Element }
