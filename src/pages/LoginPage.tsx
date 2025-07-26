@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { loginService } from "../services/authServices.js";
+import { loginService } from "../services/authServices.ts";
 import { useNavigate } from "react-router-dom";
 import styles from "./LoginPage.module.css";
 import logo from "../lib/images/flierchat_logo.png";

@@ -33,13 +33,19 @@ const SocketProvider = (
     useEffect(() => {
         if (!socket.connected) {
             socket.connect();
+
+            socket.on("connect", () => {
+                socket.emit("userConnected");
+            });
         }
 
         return (): void => {
-            if (socket.connected) { socket.disconnect(); }
-            socket.off();
+            if (socket.connected) {
+                socket.disconnect();
+                socket.off();
+            }
         };
-    }, []);
+    }, [userInfoState]);
 
     useEffect(() => {
         socket.on("userDisconnected", () => {
@@ -128,10 +134,6 @@ const SocketProvider = (
             socket.removeAllListeners();
         };
     }, [addSelectedChatParticipant, deleteSelectedChatParticipant, emptySelectedChatState, selectedChatState, setSelectedChatState, updateChatList, userInfoState]);
-
-    useEffect(() => {
-        socket.emit("onlineUsers");
-    }, []);
 
     const valuesToProvide = { onlineUserIds, socket, updateChatList };
 
