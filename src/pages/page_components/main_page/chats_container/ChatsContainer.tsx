@@ -1,9 +1,10 @@
 import styles from "./ChatsContainer.module.css";
 import ChatList from "./ChatList.tsx";
 import CreateNewChatModal from "./CreateNewChatModal.tsx";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import AddIcon from "../../../../lib/icons/addIcon.svg?react";
 import { getUserChatsService } from "../../../../services/chatServices.js";
+import { SocketContext } from "../../../../Contexts/SocketContext.ts";
 
 interface Chat {
     id: string;
@@ -28,6 +29,7 @@ const ChatsContainer = (): React.JSX.Element => {
     const [showCreateNewChatModal, setShowCreateNewChatModal] = useState(false);
     const [chats, setChats] = useState<Chat[]>([]);
     const [loading, setLoading] = useState(true);
+    const { updateChatList } = useContext(SocketContext);
 
     useEffect(() => {
         const getData = async (): Promise<void> => {
@@ -36,7 +38,7 @@ const ChatsContainer = (): React.JSX.Element => {
             setLoading(false);
         };
         void getData();
-    }, []);
+    }, [updateChatList]);
 
 
     return (
