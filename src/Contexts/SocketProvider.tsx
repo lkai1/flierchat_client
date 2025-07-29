@@ -21,6 +21,7 @@ const SocketProvider = (
 
     const [onlineUserIds, setOnlineUserIds] = useState<string[]>([]);
     const [updateChatList, setUpdateChatList] = useState(false);
+
     const {
         selectedChatState,
         setSelectedChatState,
@@ -31,21 +32,8 @@ const SocketProvider = (
     const { userInfoState } = useContext(UserInfoContext);
 
     useEffect(() => {
-        if (!socket.connected) {
-            socket.connect();
-
-            socket.on("connect", () => {
-                socket.emit("userConnected");
-            });
-        }
-
-        return (): void => {
-            if (socket.connected) {
-                socket.disconnect();
-                socket.off();
-            }
-        };
-    }, [userInfoState]);
+        socket.connect();
+    }, []);
 
     useEffect(() => {
         socket.on("userDisconnected", () => {
@@ -70,12 +58,12 @@ const SocketProvider = (
                 messageCreator: { id: string, username: string }
             }
         }) => {
-
             //find a way to clean out "id" typeguard
             if ('id' in userInfoState && message.messageCreator.id !== userInfoState.id) { setTabInfoNewMessages(); }
             setSelectedChatState(prevState => {
                 return { ...prevState, messages: [...prevState.messages, message] };
             });
+            setUpdateChatList(!updateChatList);
         });
 
         socket.on("messageDelete", (messageId) => {
@@ -84,7 +72,7 @@ const SocketProvider = (
                 return { ...prevState, messages: [...prevState.messages.filter((message) => { return message.id !== messageId; })] };
             });
         });
-        //why this doesnt require type for userId???
+
         socket.on("messageDeleteAll", ({ userId }) => {
             if ('id' in selectedChatState && selectedChatState.id) {
                 setSelectedChatState(prevState => {
@@ -134,6 +122,10 @@ const SocketProvider = (
             socket.removeAllListeners();
         };
     }, [addSelectedChatParticipant, deleteSelectedChatParticipant, emptySelectedChatState, selectedChatState, setSelectedChatState, updateChatList, userInfoState]);
+
+    useEffect(() => {
+        socket.emit("onlineUsers");
+    }, []);
 
     const valuesToProvide = { onlineUserIds, socket, updateChatList };
 

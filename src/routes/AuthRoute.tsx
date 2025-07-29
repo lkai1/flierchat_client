@@ -12,6 +12,7 @@ const AuthRoute = ({ children }: { children: React.JSX.Element; }): React.JSX.El
         const getData = async (): Promise<void> => {
             const result = await verifyLoginService();
             if (!result.success) {
+                socket.disconnect();
                 await api.post('/auth/logout', {}, { withCredentials: true });
             }
             setVerifiedLogin(result.success);

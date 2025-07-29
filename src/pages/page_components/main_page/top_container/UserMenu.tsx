@@ -3,11 +3,13 @@ import React, { useContext, useState } from "react";
 import { UserInfoContext } from "../../../../Contexts/UserInfoContext.ts";
 import { logoutService } from "../../../../services/authServices.ts";
 import { useNavigate } from "react-router-dom";
+import { SocketContext } from "../../../../Contexts/SocketContext.ts";
 
 const UserMenu = (): React.JSX.Element => {
 
     const [isShown, setIsShown] = useState(false);
     const { userInfoState } = useContext(UserInfoContext);
+    const { socket } = useContext(SocketContext);
     const navigate = useNavigate();
 
     return (
@@ -29,7 +31,9 @@ const UserMenu = (): React.JSX.Element => {
                 </button>
                 <button className={styles.logoutButton}
                     type="button"
-                    onClick={() => { void logoutService(navigate); }}>
+                    onClick={() => {
+                        void logoutService(navigate, socket);
+                    }}>
                     Kirjaudu ulos
                 </button>
             </div>

@@ -2,6 +2,7 @@ import { AxiosResponse, isAxiosError } from 'axios';
 import { validateUsername, validatePassword } from '../utils/validation/authValidation.ts';
 import { NavigateFunction } from 'react-router';
 import api from '../api.ts';
+import { Socket } from 'socket.io-client';
 
 export const loginService = async (loginCreds: { username: string, password: string }): Promise<{
     success: boolean,
@@ -72,9 +73,10 @@ export const registerService = async (registerCreds: {
     return result;
 };
 
-export const logoutService = async (navigate: NavigateFunction,): Promise<{ success: boolean, message: string }> => {
+export const logoutService = async (navigate: NavigateFunction, socket: Socket): Promise<{ success: boolean, message: string }> => {
     //removed navigate from here so fix where this function is used
     try {
+        socket.disconnect();
         await api.post('/auth/logout', {}, { withCredentials: true });
         await navigate("/login");
         return { success: true, message: "" };
