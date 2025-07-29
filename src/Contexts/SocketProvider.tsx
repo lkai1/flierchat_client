@@ -10,7 +10,7 @@ import { SocketContext } from "./SocketContext.ts";
 //it is most likely now wrong
 const socket = io(
     //production
-    "wss://flierchatserver-production.up.railway.app",
+    "https://flierchatserver-production.up.railway.app",
     //development
     /* "http://localhost:5000", */
     { autoConnect: false, withCredentials: true });
