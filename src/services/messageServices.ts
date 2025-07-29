@@ -91,6 +91,7 @@ export const deleteUserMessageService = async (messageId: string): Promise<{ suc
             },
             withCredentials: true
         });
+        result.success = true;
     } catch {
         result.message = "Viestin poistamisessa esiintyi virhe.";
     }
