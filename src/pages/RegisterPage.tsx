@@ -57,7 +57,7 @@ const RegisterPage = (): React.JSX.Element => {
                             Käyttäjänimi: 3-20 kirjainta tai numeroa.
                         </p>
                         <p className={styles.guideTextTop}>
-                            {"Salasana: 8-30 merkkiä. Ainakin 1 iso ja pieni kirjain, 1 numero ja 1 erikoismerkki (@$!%*?&)."}
+                            {"Salasana: 8-30 merkkiä. Sallitut erikoismerkit (@$!%*?&)."}
                         </p>
                         <p className={notification ? styles.notification : styles.notificationHidden}>{notification}</p>
                         <div className={styles.inputsContainer}>
