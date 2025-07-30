@@ -4,6 +4,8 @@ import { UserInfoContext } from "../../../../Contexts/UserInfoContext.ts";
 import { logoutService } from "../../../../services/authServices.ts";
 import { useNavigate } from "react-router-dom";
 import { SocketContext } from "../../../../Contexts/SocketContext.ts";
+import UserIcon from "../../../../lib/icons/userIcon.svg?react";
+
 
 const UserMenu = (): React.JSX.Element => {
 
@@ -19,6 +21,9 @@ const UserMenu = (): React.JSX.Element => {
                 onClick={() => { setIsShown(!isShown); }}
             >
                 <p className={styles.username}>{userInfoState.username}</p>
+                <div className={styles.userIconContainer}>
+                    <UserIcon className={styles.userIcon} />
+                </div>
             </button>
             <div className={isShown ? styles.menu : styles.menuHidden}>
                 <button className={styles.navigateToUserSettingsButton}
