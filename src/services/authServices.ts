@@ -74,7 +74,6 @@ export const registerService = async (registerCreds: {
 };
 
 export const logoutService = async (navigate: NavigateFunction, socket: Socket): Promise<{ success: boolean, message: string }> => {
-    //removed navigate from here so fix where this function is used
     try {
         socket.disconnect();
         await api.post('/auth/logout', {}, { withCredentials: true });

@@ -29,7 +29,7 @@ const ChatContainer = (): React.JSX.Element => {
                 message: result.message,
                 chatId
             });
-        } else { setNotification(result.message); }
+        } else { setNotification(typeof result.message === "string" ? result.message : ""); }
         setMessage("");
     };
 

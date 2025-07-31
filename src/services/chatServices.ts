@@ -2,7 +2,6 @@ import { isAxiosError } from "axios";
 import api from "../api.ts";
 import { validateChatId, validateChatName, validateChatParticipantId, validateUsername } from "../utils/validation/chatValidation.ts";
 
-//check correct type
 interface Chat {
     id: string;
     chatName: string;

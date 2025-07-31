@@ -12,8 +12,6 @@ const UserInfoProvider = ({ children }: { children: React.JSX.Element }): React.
             .then((userInfo) => {
                 setUserInfoState(userInfo);
                 setLoading(false);
-                //figure out a cleaner way to deal with this catch??
-                //is catch needed when userInfoservice has try catch
             }).catch(() => { return null; });
     }, []);
 

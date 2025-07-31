@@ -22,9 +22,9 @@ export const getChatMessagesService = async (chatId: string): Promise<Message[] 
     }
 };
 
-export const createMessageService = async (chatId: string, message: string): Promise<{ success: boolean, message: string }> => {
+export const createMessageService = async (chatId: string, message: string): Promise<{ success: boolean, message: Message | string }> => {
 
-    const result = { success: false, message: "" };
+    const result: { success: boolean, message: string | Message } = { success: false, message: "" };
     try {
         if (!message) { return result; }
 
@@ -33,8 +33,8 @@ export const createMessageService = async (chatId: string, message: string): Pro
             result.message = "Viestin lähetyksessä esiintyi virhe.";
             return result;
         }
-        //check what response comes from backend and correct the type
-        const response = await api.post<string>("/message",
+
+        const response = await api.post<Message>("/message",
             {
                 message,
                 chatId
@@ -43,7 +43,7 @@ export const createMessageService = async (chatId: string, message: string): Pro
                 withCredentials: true
             }
         );
-        //is response.data an object???
+
         result.success = true;
         result.message = response.data;
     } catch {

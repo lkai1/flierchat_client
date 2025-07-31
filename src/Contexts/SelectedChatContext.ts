@@ -2,7 +2,6 @@
 /* eslint-disable no-empty-function */
 import { createContext, SetStateAction, Dispatch } from "react";
 
-//check correct type
 interface Chat {
     id: string;
     chatName: string;
@@ -26,8 +25,7 @@ interface Context {
     setSelectedChatState: Dispatch<SetStateAction<Chat>>;
     updateSelectedChatState(chat: Chat): void;
     deleteSelectedChatParticipant(id: string): void;
-    //check correct type
-    addSelectedChatParticipant(participant: { id: string }): void;
+    addSelectedChatParticipant(participant: { id: string, username: string }): void;
     emptySelectedChatState(): void;
 }
 

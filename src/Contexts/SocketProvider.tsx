@@ -5,9 +5,6 @@ import { UserInfoContext } from "./UserInfoContext.js";
 import { setTabInfoNewMessages } from "../utils/tabInfo.ts";
 import { SocketContext } from "./SocketContext.ts";
 
-
-//make sure this is correct with cookies and cors and separate backend app
-//it is most likely now wrong
 const socket = io(
     //production
     "https://flierchatserver-production.up.railway.app",
@@ -48,7 +45,6 @@ const SocketProvider = (
             setOnlineUserIds(userIds);
         });
 
-        // check and correct the true type of message
         socket.on("message", ({ message }: {
             message: {
                 id: string;
@@ -58,7 +54,6 @@ const SocketProvider = (
                 messageCreator: { id: string, username: string }
             }
         }) => {
-            //find a way to clean out "id" typeguard
             if ('id' in userInfoState && message.messageCreator.id !== userInfoState.id) { setTabInfoNewMessages(); }
             setSelectedChatState(prevState => {
                 return { ...prevState, messages: [...prevState.messages, message] };
@@ -98,8 +93,8 @@ const SocketProvider = (
                 deleteSelectedChatParticipant(userId);
             }
         });
-        //correct participant type
-        socket.on("chatParticipantAdd", (participant: { chatParticipant: { id: string } }) => {
+
+        socket.on("chatParticipantAdd", (participant: { chatParticipant: { id: string, username: string } }) => {
             addSelectedChatParticipant(participant.chatParticipant);
         });
 

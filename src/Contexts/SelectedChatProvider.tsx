@@ -34,7 +34,7 @@ const SelectedChatProvider = ({ children }: { children: React.JSX.Element; }): R
     }
 
     const [selectedChatState, setSelectedChatState] = useState<Chat>(emptyChat);
-    //check all values when typescript conversion is done. the types are wrong. PARTICIPANT ESPECIALLY WRONG
+
     const valuesToProvide = useMemo(
         () => {
             return {
