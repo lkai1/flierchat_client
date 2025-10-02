@@ -4,6 +4,8 @@ Featuret:
 
 -Käyttäjänhallinta (Rekisteröinti, kirjautuminen, käyttäjän poistaminen)
 
+-Käyttäjäroolit (keskustelun luoja, tavallinen käyttäjä)
+
 -Reaaliaikaisuus
 
 -Chathuoneet
