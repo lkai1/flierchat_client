@@ -18,6 +18,6 @@ Featuret:
 
 -websocket (socket.io) logiikka tarkoituksella eriytetty api logiikasta koodin selkeyttämiseksi ja jatkokehityksen helpottamiseksi
 
--käyttäjän lähettämien linkkien tunnistusaminen linkeiksi (linkify.js)
+-käyttäjän lähettämien linkkien tunnistaminen linkeiksi (linkify.js)
 
 -evästeiden hallinta
