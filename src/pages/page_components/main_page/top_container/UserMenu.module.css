@@ -50,7 +50,8 @@
 
 .userIconContainer {
     position: relative;
-    background-color: rgb(200, 200, 200);
+    background-color: rgb(220, 220, 220);
+    border: 2px solid rgb(180, 180, 180);
     border-radius: 100px;
     height: 45px;
     width: 45px;
@@ -148,6 +149,7 @@
         height: 40px;
         width: 40px;
     }
+
     .username {
         font-size: 20px;
         max-width: 200px;
@@ -202,6 +204,7 @@
         height: 37px;
         width: 37px;
     }
+
     .username {
         font-size: 16px;
         max-width: 105px;
