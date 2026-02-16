@@ -3,6 +3,11 @@
   src: url("/fonts/Oswald-Regular.ttf") format("truetype");
 }
 
+@font-face {
+  font-family: "Unbounded";
+  src: url("/fonts/Unbounded-VariableFont_wght.ttf") format("truetype");
+}
+
 html {
   height: 100%;
   width: 100%;
@@ -12,8 +17,7 @@ body {
   height: 100%;
   width: 100%;
   margin: 0;
-  padding: 0;
-  background-color: rgb(245, 245, 245);
+  background-color: rgb(20, 20, 20);
 }
 
 #root {

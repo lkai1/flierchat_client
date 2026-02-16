@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { loginService } from "../services/authServices.ts";
 import { useNavigate } from "react-router-dom";
 import styles from "./LoginPage.module.css";
-import logo from "../lib/images/flierchat_logo.png";
 
 const LoginPage = (): React.JSX.Element => {
 
@@ -29,11 +28,18 @@ const LoginPage = (): React.JSX.Element => {
 
     return (
         <div className={styles.mainContainer} >
-            <img
-                src={logo}
-                alt="img"
-                className={styles.logoImg}
-            />
+            <h1 className={styles.logoTextContainer}>
+                <span className={styles.logoText1}>flier</span>
+                <span className={styles.logoText2}>chat</span>
+            </h1>
+            <div className={styles.headerContainer}>
+                <p className={styles.headerText}>
+                    Tervetuloa takaisin
+                </p>
+                <p className={styles.headerText2}>
+                    Kirjaudu sisään jatkaaksesi
+                </p>
+            </div>
             <div className={styles.loginContainer}>
                 <form
                     className={styles.form}
@@ -42,13 +48,8 @@ const LoginPage = (): React.JSX.Element => {
                         void handleFormSubmit(emptyLoginCreds, loginCreds, setLoginCreds, setNotification);
                     }}>
                     <div className={styles.formContentContainer}>
-                        <div className={styles.headerContainer}>
-                            <p className={styles.headerText}>
-                                KIRJAUTUMINEN
-                            </p>
-                        </div>
-                        < p className={styles.notification} > {notification} </p>
-                        < div className={styles.inputsContainer} >
+                        <p className={styles.notification} > {notification} </p>
+                        <div className={styles.inputsContainer} >
                             <input
                                 placeholder="Käyttäjänimi"
                                 className={styles.inputField}
@@ -72,17 +73,20 @@ const LoginPage = (): React.JSX.Element => {
                                 }}
                             />
                         </div>
-                        < input
+                        <button
                             className={styles.submitButton}
-                            type="submit" value={"Kirjaudu"} />
+                            type="submit">Kirjaudu</button>
                     </div>
                 </form>
-                < button className={styles.toRegistrationButton}
-                    type="button"
-                    onClick={() => { void navigate("/register"); }}
-                >
-                    Rekisteröidy ?
-                </button>
+                <div className={styles.toRegistrationContainer}>
+                    <p >Eikö sinulla ole vielä tiliä?</p>
+                    <button className={styles.toRegistrationButton}
+                        type="button"
+                        onClick={() => { void navigate("/register"); }}
+                    >
+                        Rekisteröidy
+                    </button>
+                </div>
             </div>
         </div>
     );

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { registerService } from "../services/authServices.js";
 import { useNavigate } from "react-router-dom";
 import styles from "./RegisterPage.module.css";
-import logo from "../lib/images/flierchat_logo.png";
 
 const RegisterPage = (): React.JSX.Element => {
 
@@ -33,12 +32,17 @@ const RegisterPage = (): React.JSX.Element => {
 
     return (
         <div className={styles.mainContainer}>
-            <div className={styles.logoContainer}>
-                <img
-                    src={logo}
-                    alt="img"
-                    className={styles.logoImg}
-                />
+            <h1 className={styles.logoTextContainer}>
+                <span className={styles.logoText1}>flier</span>
+                <span className={styles.logoText2}>chat</span>
+            </h1>
+            <div className={styles.headerContainer}>
+                <p className={styles.headerText}>
+                    Tervetuloa
+                </p>
+                <p className={styles.headerText2}>
+                    Täällä voit luoda uuden tilin
+                </p>
             </div>
             <div className={styles.registerContainer}>
                 <form
@@ -48,15 +52,10 @@ const RegisterPage = (): React.JSX.Element => {
                         void handleFormSubmit(emptyRegisterCreds, registerCreds, setRegisterCreds, setNotification);
                     }}>
                     <div className={styles.formContentContainer}>
-                        <div className={styles.headerContainer}>
-                            <p className={styles.headerText}>
-                                REKISTERÖITYMINEN
-                            </p>
-                        </div>
-                        <p className={styles.guideTextTop}>
+                        <p className={styles.guideText}>
                             Käyttäjänimi: 3-20 kirjainta tai numeroa.
                         </p>
-                        <p className={styles.guideTextTop}>
+                        <p className={styles.guideText}>
                             {"Salasana: 8-30 merkkiä. Sallitut erikoismerkit (@$!%*?&)."}
                         </p>
                         <p className={notification ? styles.notification : styles.notificationHidden}>{notification}</p>
@@ -95,7 +94,7 @@ const RegisterPage = (): React.JSX.Element => {
                                 }}
                             />
                         </div>
-                        <p className={styles.guideTextBottom}>
+                        <p className={styles.guideText}>
                             Salasanaa ei voi palauttaa, joten ota se talteen!
                         </p>
                         <input
@@ -103,12 +102,15 @@ const RegisterPage = (): React.JSX.Element => {
                             type="submit" value={"Rekisteröidy"} />
                     </div>
                 </form>
-                <button className={styles.toLoginButton}
-                    type="button"
-                    onClick={() => { void navigate("/login"); }}
-                >
-                    Kirjaudu sisään?
-                </button>
+                <div className={styles.toLoginContainer}>
+                    <p >Onko sinulla jo tili?</p>
+                    <button className={styles.toLoginButton}
+                        type="button"
+                        onClick={() => { void navigate("/login"); }}
+                    >
+                        Kirjaudu sisään
+                    </button>
+                </div>
             </div>
         </div>
     );
