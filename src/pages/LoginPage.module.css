@@ -74,14 +74,14 @@
 }
 
 .inputField {
-    width: calc(340px - 24px);
+    width: calc(304px - 24px);
     padding: 13px;
     font-size: 17px;
     font-family: 'Oswald';
     border-radius: 12px;
     border: 2px solid #333849;
     outline: none;
-    height: 40px;
+    height: 20px;
     margin: 15px 20px 0px 20px;
     background-color: #1f222c;
     caret-color: rgb(175, 175, 175);
@@ -93,8 +93,8 @@
 }
 
 .submitButton {
-    width: 350px;
-    padding: 14px;
+    width: 310px;
+    padding: 12px;
     font-size: 17px;
     font-family: 'Oswald';
     background-color: rgb(25, 77, 221);
@@ -102,6 +102,7 @@
     border: none;
     border-radius: 12px;
     cursor: pointer;
+    margin-top: 25px;
 }
 
 .submitButton:hover {
@@ -132,134 +133,4 @@
     cursor: pointer;
     background-color: rgba(0, 0, 0, 0);
     color: rgb(25, 77, 221);
-}
-
-@media screen and (max-width: 2000px) {
-    .logoImg {
-        width: 380px;
-    }
-
-    .loginContainer {
-        height: fit-content;
-        width: 360px;
-    }
-
-    .headerContainer {
-        padding: 12px;
-    }
-
-    .headerText {
-        font-size: 25px;
-    }
-
-    .notification {
-        margin: 20px 16px 0 16px;
-        font-size: 14px;
-    }
-
-    .inputField {
-        width: calc(306px - 24px);
-        padding: 12px;
-        border-radius: 12px;
-        height: 20px;
-        margin: 15px 20px 0px 20px;
-    }
-
-    .guideText {
-        font-size: 13px;
-        height: 18px;
-        margin: 0;
-        margin-top: 18px;
-        margin-bottom: 9px;
-    }
-
-    .submitButton {
-        margin-top: 30px;
-        width: 314px;
-        padding: 14px;
-        border-radius: 12px;
-    }
-
-    .toRegisterButton {
-        font-size: 14px;
-        margin-top: 23px
-    }
-}
-
-@media screen and (max-width: 1600px) {
-    .logoImg {
-        width: 320px;
-    }
-
-    .loginContainer {
-        height: fit-content;
-        width: 300px;
-    }
-
-    .headerContainer {
-        padding: 10px;
-    }
-
-    .headerText {
-        font-size: 21px;
-    }
-
-    .notification {
-        margin: 15px 12px 0 12px;
-        font-size: 12px;
-    }
-
-    .inputField {
-        width: calc(255px - 20px);
-        padding: 10px;
-        border-radius: 12px;
-        height: 17px;
-        margin: 15px 20px 0px 20px;
-    }
-
-    .submitButton {
-        margin-top: 20px;
-        width: 262px;
-        padding: 10px;
-        border-radius: 12px;
-    }
-}
-
-@media screen and (max-width: 800px) {
-    .logoImg {
-        width: 260px;
-    }
-
-    .loginContainer {
-        height: fit-content;
-        width: 240px;
-    }
-
-    .headerContainer {
-        padding: 8px;
-    }
-
-    .headerText {
-        font-size: 17px;
-    }
-
-    .notification {
-        margin: 12px 10px 0 10px;
-        font-size: 10px;
-    }
-
-    .inputField {
-        width: calc(201px - 16px);
-        padding: 8px;
-        border-radius: 12px;
-        height: 13.5px;
-        margin: 10px 13px 0px 13px;
-    }
-
-    .submitButton {
-        margin-top: 15px;
-        width: 210px;
-        padding: 8px;
-        border-radius: 12px;
-    }
 }
