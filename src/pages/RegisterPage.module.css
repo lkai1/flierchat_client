@@ -146,3 +146,7 @@
     background-color: rgba(0, 0, 0, 0);
     color: rgb(25, 77, 221);
 }
+
+.toLoginButton:hover {
+    color: rgb(29, 135, 255);
+}

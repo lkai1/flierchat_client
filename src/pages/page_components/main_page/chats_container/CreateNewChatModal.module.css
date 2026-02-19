@@ -4,7 +4,7 @@
     width: 100%;
     top: 0;
     left: 0;
-    background-color: rgba(50, 50, 50, 0.3);
+    background-color: rgba(0, 0, 0, 0.4);
     z-index: 3;
     display: flex;
     flex-direction: column;
@@ -20,8 +20,9 @@
     height: fit-content;
     padding-bottom: 20px;
     width: 300px;
-    background-color: white;
-    border-radius: 5px;
+    background-color: rgb(24, 24, 29);
+    border-radius: 12px;
+    border: 1px solid rgb(45, 45, 45);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -40,29 +41,29 @@
     margin-left: 0;
     font-size: 20px;
     font-family: "Oswald";
-    font-weight: bold;
+    color: rgb(230, 230, 230);
 }
 
 .closeButton {
-    border-radius: 100px;
+    border-radius: 12px;
     border: none;
-    height: 40px;
-    width: 40px;
+    height: 35px;
+    width: 35px;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
     margin: 10px;
     margin-right: 0;
-    background-color: rgb(240, 240, 240);
+    background-color: rgb(25, 77, 221);
 }
 
 .closeButton:hover {
-    background-color: rgb(230, 230, 230);
+    background-color: rgb(29, 135, 255);
 }
 
 .closeButtonImg {
-    fill: rgb(70,70,70);
+    fill: rgb(230, 230, 230);
 }
 
 .notificationText {
@@ -97,7 +98,7 @@
 
 .chatTypeSelectionButton {
     border: none;
-    background-color: rgb(230, 230, 230);
+    background-color: #1f222c;
     border-radius: 5px;
     display: flex;
     justify-content: center;
@@ -105,27 +106,24 @@
     overflow: hidden;
     cursor: pointer;
     border: 0;
-    color: rgb(60, 60, 60);
+    color: rgb(230, 230, 230);
     padding: 10px 15px 10px 15px;
     font-size: 16px;
     font-family: "Oswald";
-    font-weight: bold;
     width: 120px;
 }
 
-.chatTypeSelectionButton[is-selected="true"] {
-    background-color: rgb(0, 153, 255);
-    color: white;
-}
-
 .chatTypeSelectionButton:hover {
-    background-color: rgb(220, 220, 220);
+    background-color: rgb(25, 77, 221);
 }
 
-.chatTypeSelectionButton:hover[is-selected="true"] {
-    background-color: rgb(0, 153, 255);
-    color: white;
+.chatTypeSelectionButton[is-selected="true"] {
+    background-color: rgb(25, 77, 221);
 }
+
+/* .chatTypeSelectionButton:hover[is-selected="true"] {
+    background-color: rgb(29, 135, 255);
+} */
 
 .createChatForm {
     width: 100%;
@@ -137,13 +135,16 @@
 .inputField {
     width: calc(90% - 26px);
     padding: 13px;
-    font-size: 16px;
+    font-size: 17px;
     font-family: 'Oswald';
     border-radius: 12px;
-    border: 2px solid rgb(215, 215, 215);
+    border: 2px solid #333849;
     outline: none;
-    height: 22px;
-    margin-top: 20px;
+    height: 20px;
+    margin: 20px 0px 0px 0px;
+    background-color: #1f222c;
+    caret-color: rgb(175, 175, 175);
+    color: rgb(175, 175, 175);
 }
 
 .inputField:hover {
@@ -151,7 +152,7 @@
 }
 
 .createButton {
-    background-color: rgb(0, 153, 255);
+    background-color: rgb(25, 77, 221);
     border-radius: 10px;
     height: 50px;
     margin-top: 20px;
@@ -161,20 +162,19 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    color: white;
+    color: rgb(230, 230, 230);
     font-family: "Oswald";
     font-size: 16px;
-    font-weight: bold;
 }
 
 .createButton:hover {
-    background-color: rgb(0, 138, 230);
+    background-color: rgb(29, 135, 255);
 }
 
-@media only screen and (max-width: 340px) {
+/* @media only screen and (max-width: 340px) {
     .contentContainer {
         width: 260px;
         top: calc(50% - 100px);
         left: calc(50% - 130px);
     }
-}
+} */

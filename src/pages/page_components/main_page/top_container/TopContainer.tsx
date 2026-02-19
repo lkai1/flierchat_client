@@ -1,19 +1,15 @@
 import styles from "./TopContainer.module.css";
 import UserMenu from "./UserMenu.tsx";
-import logo from "../../../../lib/images/flierchat_logo2.png";
 import React from "react";
 
 const TopContainer = (): React.JSX.Element => {
 
     return (
         <div className={styles.mainContainer} >
-            <div className={styles.logoContainer}>
-                <img
-                    src={logo}
-                    alt="img"
-                    className={styles.logoImg}
-                />
-            </div>
+            <h1 className={styles.logoTextContainer}>
+                <span className={styles.logoText1}>flier</span>
+                <span className={styles.logoText2}>chat</span>
+            </h1>
             <UserMenu />
         </div>
     );

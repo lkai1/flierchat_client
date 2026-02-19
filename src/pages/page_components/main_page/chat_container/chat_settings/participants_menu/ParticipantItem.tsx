@@ -1,5 +1,5 @@
 import styles from "./ParticipantItem.module.css";
-import UserIcon from "../../../../../../lib/icons/userIcon.svg?react";
+/* import UserIcon from "../../../../../../lib/icons/userIcon.svg?react"; */
 import React, { useContext } from 'react';
 import { SelectedChatContext } from "../../../../../../Contexts/SelectedChatContext.ts";
 import { UserInfoContext } from "../../../../../../Contexts/UserInfoContext.ts";
@@ -16,8 +16,10 @@ const ParticipantItem = ({ userId, username, onlineUserIds }: { userId: string, 
         <div className={styles.mainContainer}>
             <div className={styles.contentContainer}>
                 <div className={styles.userInfoContainer}>
-                    <div className={styles.userIconContainer}>
-                        <UserIcon className={styles.userIcon} />
+                    <div className={styles.userImageContainer}>
+                        <p className={styles.userNoImageText}>
+                            {username.substring(0, 1)}
+                        </p>
                         <div className={styles.onlineStatusCircle}
                             user-online={onlineUserIds.includes(userId) ? "true" : "false"}></div>
                     </div>

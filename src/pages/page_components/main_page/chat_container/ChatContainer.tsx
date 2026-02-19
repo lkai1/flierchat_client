@@ -5,19 +5,19 @@ import React, { useContext, useState } from "react";
 import { createMessageService } from "../../../../services/messageServices.ts";
 import ChatSettings from "./ChatSettings.tsx";
 import { SocketContext } from "../../../../Contexts/SocketContext.ts";
-import { UserInfoContext } from "../../../../Contexts/UserInfoContext.ts";
+/* import { UserInfoContext } from "../../../../Contexts/UserInfoContext.ts"; */
 import { updateUnreadMessagesAmountInChatService } from "../../../../services/chatServices.ts";
 
 const ChatContainer = (): React.JSX.Element => {
 
     const [message, setMessage] = useState("");
     const { selectedChatState } = useContext(SelectedChatContext);
-    const { userInfoState } = useContext(UserInfoContext);
+    /* const { userInfoState } = useContext(UserInfoContext); */
     const { socket } = useContext(SocketContext);
     const [notification, setNotification] = useState("");
 
     const handleFormSubmit = async (
-        event: React.FormEvent<HTMLFormElement>,
+        event: React.SubmitEvent<HTMLFormElement>,
         chatId: string,
         message: string,
         setMessage: React.Dispatch<React.SetStateAction<string>>
@@ -33,9 +33,9 @@ const ChatContainer = (): React.JSX.Element => {
         setMessage("");
     };
 
-    const chatIsGroup = Boolean(selectedChatState.isGroup);
-    const chatTitle = chatIsGroup ? selectedChatState.chatName
-        : selectedChatState.chatParticipants.find(((participant) => { return participant.id !== userInfoState.id; }))?.username;
+    /* const chatIsGroup = Boolean(selectedChatState.isGroup); */
+    /* const chatTitle = chatIsGroup ? selectedChatState.chatName
+        : selectedChatState.chatParticipants.find(((participant) => { return participant.id !== userInfoState.id; }))?.username; */
 
     return (
         <div className={styles.mainContainer}
@@ -44,14 +44,14 @@ const ChatContainer = (): React.JSX.Element => {
             }}
         >
             <ChatSettings />
-            <div className={styles.chatInfoContainer}>
+            {/* <div className={styles.chatInfoContainer}>
                 <p className={styles.chatTypeText}>
                     {chatIsGroup ? "Ryhmä:" : "Yksityinen:"}
                 </p>
                 <p className={styles.chatTitleText}>
                     {chatTitle}
                 </p>
-            </div>
+            </div> */}
             <MessageList />
             <p className={notification ? styles.notificationShown : styles.notification}>{notification}</p>
             {selectedChatState.id &&

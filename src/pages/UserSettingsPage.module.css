@@ -1,7 +1,7 @@
 .mainContainer {
-    width: 100%;
-    height: 100%;
-    background-color: white;
+    width: calc(100% - 30px);
+    height: calc(100% - 30px);
+    padding: 15px;
 }
 
 .navigateToMainPageButton {
@@ -11,20 +11,28 @@
     align-items: center;
     border: none;
     cursor: pointer;
-    padding: 15px 30px 15px 30px;
-    background-color: white;
+    height: 50px;
+    border-radius: 12px;
+    cursor: pointer;
+    background-color: rgb(30, 31, 36);
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
-.navigateToMainPageButtonIconImg{
-    fill: rgb(0, 153, 255);
+.navigateToMainPageButton:hover {
+    background-color: #222226;
+}
+
+.navigateToMainPageButtonIconImg {
+    fill: rgb(25, 77, 221);
 }
 
 .navigateToMainPageButtonText {
     margin: 0;
     margin-left: 10px;
     font-family: 'Oswald';
-    font-weight: bold;
     font-size: 16px;
+    color: rgb(230, 230, 230);
 }
 
 .openDeleteUserMenuButtonContainer {
@@ -55,16 +63,15 @@
 }
 
 .openMenuButtonImg {
-    fill: white;
+    fill: rgb(230, 230, 230);
 }
 
 .openMenuButtonText {
     font-family: 'Oswald';
-    font-size: 16px;
-    font-weight: bold;
+    font-size: 17px;
     margin: 0;
     padding: 0;
-    color: white;
+    color: rgb(230, 230, 230);
 }
 
 .openMenuButtonIcon {
@@ -95,6 +102,7 @@
     background-color: rgba(50, 50, 50, 0.3);
     z-index: 1;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
@@ -104,15 +112,15 @@
 }
 
 .contentContainer {
+    height: fit-content;
     padding-bottom: 20px;
-    height: 140px;
     width: 300px;
-    background-color: white;
-    border-radius: 5px;
+    background-color: rgb(24, 24, 29);
+    border-radius: 12px;
+    border: 1px solid rgb(45, 45, 45);
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
 }
 
 .topContainer {
@@ -120,36 +128,37 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: flex-start;
+    width: calc(100% - 30px)
 }
 
 .topTitle {
     margin: 10px;
-    margin-left: 20px;
+    margin-left: 0;
     font-size: 20px;
-    font-family: 'Oswald';
-    font-weight: bold;
+    font-family: "Oswald";
+    color: rgb(230, 230, 230);
 }
 
 .closeButton {
-    border-radius: 100px;
+    border-radius: 12px;
     border: none;
-    height: 40px;
-    width: 40px;
+    height: 35px;
+    width: 35px;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
     margin: 10px;
-    margin-right: 20px;
-    background-color: rgb(240, 240, 240);
+    margin-right: 0;
+    background-color: rgb(25, 77, 221);
 }
 
 .closeButton:hover {
-    background-color: rgb(230, 230, 230);
+    background-color: rgb(29, 135, 255);
 }
 
 .closeButtonImg {
-    fill: rgb(70, 70, 70);
+    fill: rgb(230, 230, 230);
 }
 
 .notificationText {
@@ -164,21 +173,23 @@
 }
 
 .deleteButton {
+    background-color: rgb(25, 77, 221);
+    border-radius: 10px;
+    height: 50px;
+    margin-top: 20px;
     width: calc(100% - 30px);
     border: none;
-    margin-top: 20px;
-    border-radius: 10px;
-    color: white;
-    padding: 10px 15px 10px 15px;
-    font-family: "Oswald";
-    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
+    color: rgb(230, 230, 230);
+    font-family: "Oswald";
     font-size: 16px;
-    background-color: rgb(255, 50, 50);
 }
 
 .deleteButton:hover {
-    background-color: rgb(193, 36, 36);
+    background-color: rgb(29, 135, 255);
 }
 
 @media only screen and (max-width: 340px) {

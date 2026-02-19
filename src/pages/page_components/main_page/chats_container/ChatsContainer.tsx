@@ -42,16 +42,7 @@ const ChatsContainer = (): React.JSX.Element => {
 
 
     return (
-        <div className={styles.mainContainer} >
-            {chats.length === 0 && !loading ?
-                <div className={styles.noChatsContainer}>
-                    <p className={styles.noChatsText}>
-                        Sinulla ei ole keskusteluja
-                    </p>
-                </div>
-                :
-                <ChatList chats={chats} loading={loading} />
-            }
+        <div className={styles.mainContainer}>
             <div className={styles.bottomButtonsContainer}>
                 <button className={styles.addChatButton}
                     type="button"
@@ -65,6 +56,16 @@ const ChatsContainer = (): React.JSX.Element => {
                 isShown={showCreateNewChatModal}
                 setIsShown={setShowCreateNewChatModal}
             />
+            {/* {chats.length === 0 && !loading ?
+                <div className={styles.noChatsContainer}>
+                    <p className={styles.noChatsText}>
+                        Sinulla ei ole keskusteluja
+                    </p>
+                </div>
+                : */}
+            <ChatList chats={chats} loading={loading} />
+            {/* } */}
+
         </div>
     );
 };

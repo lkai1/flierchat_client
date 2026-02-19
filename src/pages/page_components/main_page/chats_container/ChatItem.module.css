@@ -3,86 +3,59 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    width: calc(100% - 34px);
-    border: 2px solid rgb(230, 230, 230);
-    border-bottom: none;
-    padding: 15px;
-    background-color: white;
+    width: calc(100% - 20px);
+    padding: 10px;
+    border-radius: 12px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .mainContainer:hover {
-    background-color: rgb(240, 240, 240);
+    background-color: rgb(32, 32, 32);
 }
 
-.mainContainer[is-first="true"] {
-    cursor: pointer;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    width: calc(100% - 34px);
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    padding: 15px;
-    background-color: white;
+.mainContainer[is-selected="true"] {
+    background-color: rgb(32, 32, 32);
 }
 
-.mainContainer:hover[is-first="true"] {
-    background-color: rgb(240, 240, 240);
-}
-
-.mainContainer[is-last="true"] {
-    cursor: pointer;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    width: calc(100% - 34px);
-    border: 2px solid rgb(230, 230, 230);
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    padding: 15px;
-    background-color: white;
-}
-
-.mainContainer:hover[is-last="true"] {
-    background-color: rgb(240, 240, 240);
-}
-
-.chatIconContainer {
+.chatImageContainer {
     position: relative;
-    background-color: rgb(200, 200, 200);
+    background-color: #222226;
     border-radius: 100px;
-    height: 35px;
-    width: 35px;
+    height: 45px;
+    width: 45px;
     display: flex;
     justify-content: center;
     align-items: center;
     margin-right: 10px;
 }
 
-.chatIconImg {
-    fill: white;
+.chatNoImageText {
+    margin: 0;
+    color: #7E7E88;
+    font-family: "Oswald";
 }
 
 .onlineStatusCircle[user-online="true"] {
     position: absolute;
     background-color: rgb(0, 176, 0);
-    border: 3px solid rgb(255, 255, 255);
+    border: 2px solid rgb(220, 220, 220);
     border-radius: 100px;
-    height: 15px;
-    width: 15px;
-    right: -3px;
-    bottom: -3px;
+    height: 12px;
+    width: 12px;
+    right: -0px;
+    bottom: -0px;
 }
 
 .onlineStatusCircle[user-online="false"] {
     position: absolute;
-    background-color: rgb(130, 130, 130);
-    border: 3px solid rgb(255, 255, 255);
+    background-color: rgb(120, 120, 120);
+    border: 2px solid rgb(220, 220, 220);
     border-radius: 100px;
-    height: 15px;
-    width: 15px;
-    right: -3px;
-    bottom: -3px;
+    height: 12px;
+    width: 12px;
+    right: -0px;
+    bottom: -0px;
 }
 
 .typeAndTitleTextContainer {
@@ -92,21 +65,19 @@
     width: fit-content;
 }
 
-.typeText {
-    font-family: 'Oswald';
-    font-size: 13px;
-    margin: 0;
-    color: rgb(120, 120, 120);
-    font-weight: bold;
-    width: 100%;
-}
-
 .titleText {
     font-family: 'Oswald';
-    font-size: 18px;
-    color: rgb(60, 60, 60);
+    font-size: 17px;
+    color: rgb(220, 220, 220);
     margin: 0;
-    font-weight: bold;
+}
+
+.typeText {
+    font-family: 'Oswald';
+    font-size: 15px;
+    margin: 0;
+    color: rgb(160, 160, 160);
+    width: 100%;
 }
 
 .unreadMessagesAmountContainer {

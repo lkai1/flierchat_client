@@ -12,7 +12,7 @@ const ParticipantsMenu = (): React.JSX.Element => {
             <button className={styles.openMenuButton}
                 type="button"
                 onClick={() => { setIsMenuShown(!isMenuShown); }}
-                title="Lisää käyttäjä"
+                title="Käyttäjälista"
             >
                 <GroupIcon className={styles.groupIcon} />
             </button>

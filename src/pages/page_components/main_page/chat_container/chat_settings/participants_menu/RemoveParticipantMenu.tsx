@@ -1,5 +1,4 @@
 import styles from "./RemoveParticipantMenu.module.css";
-import DeleteIcon from "../../../../../../lib/icons/deleteIcon.svg?react";
 import CloseIcon from "../../../../../../lib/icons/closeIcon.svg?react";
 import React, { useContext, useState } from "react";
 import { removeChatParticipantService } from "../../../../../../services/chatServices.js";
@@ -31,7 +30,7 @@ const RemoveParticipantMenu = ({ participantId, chatId }: { participantId: strin
                 >
                     <div className={styles.openMenuButtonIcon}>
                         <div className={styles.iconContainer}>
-                            <DeleteIcon className={styles.deleteIcon} />
+                            <CloseIcon className={styles.deleteIcon} />
                         </div>
                     </div>
                 </button>

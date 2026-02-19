@@ -19,6 +19,7 @@ interface Message {
 
 const MessageList = (): React.JSX.Element => {
 
+    /* check again all message logic and structure */
     const { selectedChatState } = useContext(SelectedChatContext);
     const { userInfoState } = useContext(UserInfoContext);
     const [onHoverMessage, setOnHoverMessage] = useState("");
@@ -132,14 +133,21 @@ const MessageList = (): React.JSX.Element => {
 
     return (
         <div className={styles.mainContainer}>
-            {selectedChatState.messages.length > 0 ?
-                messageListContainerState
-                :
+            {selectedChatState.id === "" ?
                 <div className={styles.noMessagesContainer}>
                     <p className={styles.noMessagesText}>
-                        Ei viestejä vielä
+                        Avaa tai luo uusi keskustelu
                     </p>
                 </div>
+                :
+                selectedChatState.messages.length > 0 ?
+                    messageListContainerState
+                    :
+                    <div className={styles.noMessagesContainer}>
+                        <p className={styles.noMessagesText}>
+                            Ei viestejä vielä
+                        </p>
+                    </div>
             }
         </div>
     );

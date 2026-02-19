@@ -38,8 +38,6 @@ const ChatList = ({ chats, loading }: { chats: Chat[], loading: boolean }): Reac
                             key={uuidv4()}
                             chat={chats[i]}
                             unreadMessagesAmount={unreadMessagesAmountInChat.data}
-                            isFirst={i === 0}
-                            isLast={i === chats.length - 1}
                         />
                     );
                 }
@@ -52,7 +50,7 @@ const ChatList = ({ chats, loading }: { chats: Chat[], loading: boolean }): Reac
     }, [chats]);
 
     return (
-        <div className={styles.mainContainer}>
+        <div className={styles.chatListMainContainer}>
             {!loading &&
                 chatItems
             }

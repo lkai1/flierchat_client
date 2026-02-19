@@ -5,6 +5,8 @@ import { logoutService } from "../../../../services/authServices.ts";
 import { useNavigate } from "react-router-dom";
 import { SocketContext } from "../../../../Contexts/SocketContext.ts";
 import UserIcon from "../../../../lib/icons/userIcon.svg?react";
+import LogoutIcon from "../../../../lib/icons/logout_icon.svg?react";
+import SettingsIcon from "../../../../lib/icons/settings_icon.svg?react";
 
 
 const UserMenu = (): React.JSX.Element => {
@@ -32,14 +34,16 @@ const UserMenu = (): React.JSX.Element => {
                         void navigate("/user_settings");
                     }}
                 >
-                    <p className={styles.navigateToUserSettingsButtonText}>Käyttäjäasetukset</p>
+                    <p className={styles.userMenuButtonText}>Käyttäjäasetukset</p>
+                    <SettingsIcon className={styles.userMenuButtonIcon} />
                 </button>
                 <button className={styles.logoutButton}
                     type="button"
                     onClick={() => {
                         void logoutService(navigate, socket);
                     }}>
-                    Kirjaudu ulos
+                    <p className={styles.userMenuButtonText}>Kirjaudu ulos</p>
+                    <LogoutIcon className={styles.userMenuButtonIcon} />
                 </button>
             </div>
         </div>

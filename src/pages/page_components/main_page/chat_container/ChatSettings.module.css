@@ -1,7 +1,13 @@
+.emptyContainer {
+    height: 67px;
+}
+
 .mainContainer {
-    height: 45px;
-    width: 100%;
-    padding-bottom: 10px;
+    width: calc(100% - 20px);
+    padding: 10px;
+    background-color: rgb(24, 24, 29);
+    border-radius: 12px;
+    border: 1px solid rgb(45, 45, 45);
 }
 
 .contentContainer {
@@ -9,6 +15,44 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+}
+
+.chatInfoContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: fit-content;
+}
+
+.chatImageContainer {
+    width: 45px;
+    height: 45px;
+    background-color: #222226;
+    margin-right: 5px;
+    border-radius: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.chatNoImageText {
+    margin: 0;
+    color: #7E7E88;
+    font-family: "Oswald";
+}
+
+.chatTitleText {
+    margin: 0;
+    font-family: "Oswald";
+    font-size: 17px;
+    color: rgb(220, 220, 220);
+}
+
+.chatTypeText {
+    margin: 0;
+    font-family: "Oswald";
+    font-size: 15px;
+    color: rgb(160, 160, 160);
 }
 
 .toChatListButton {

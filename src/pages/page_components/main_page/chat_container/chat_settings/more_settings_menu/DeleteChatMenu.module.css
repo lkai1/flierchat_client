@@ -3,23 +3,28 @@
 }
 
 .openMenuButton {
+    border: none;
     width: 100%;
-    height: 40px;
+    height: 50px;
+    border-radius: 12px;
+    cursor: pointer;
+    background-color: rgb(30, 31, 36);
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    border: none;
-    background-color: white;
-    cursor: pointer;
+}
+
+.openMenuButton:hover {
+    background-color: #222226;
 }
 
 .openMenuButtonText {
     font-family: "Oswald";
-    font-size: 16px;
-    font-weight: bold;
+    font-size: 17px;
     margin: 0;
-    padding: 0;
+    color: rgb(230, 230, 230);
+    margin-right: 5px;
 }
 
 .openMenuButtonIcon {
@@ -45,18 +50,18 @@
     fill: rgb(255, 50, 50);
 }
 
-.openMenuButton:hover {
-    background-color: rgb(245, 245, 245);
-}
-
 .menuContainer {
     position: fixed;
     height: 100%;
     width: 100%;
     top: 0;
     left: 0;
-    background-color: rgba(50, 50, 50, 0.3);
-    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .hiddenMenuContainer {
@@ -64,14 +69,12 @@
 }
 
 .contentContainer {
-    position: absolute;
     height: fit-content;
     padding-bottom: 20px;
     width: 300px;
-    top: calc(50% - 100px);
-    left: calc(50% - 150px);
-    background-color: white;
-    border-radius: 5px;
+    background-color: rgb(24, 24, 29);
+    border-radius: 12px;
+    border: 1px solid rgb(45, 45, 45);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -81,38 +84,38 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: center;
-    width: 100%;
+    align-items: flex-start;
+    width: calc(100% - 30px)
 }
 
 .topTitle {
     margin: 10px;
-    margin-left: 15px;
+    margin-left: 0;
     font-size: 20px;
     font-family: "Oswald";
-    font-weight: bold;
+    color: rgb(230, 230, 230);
 }
 
 .closeButton {
-    border-radius: 100px;
+    border-radius: 12px;
     border: none;
-    height: 40px;
-    width: 40px;
+    height: 35px;
+    width: 35px;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
     margin: 10px;
-    margin-right: 15px;
-    background-color: rgb(240, 240, 240);
+    margin-right: 0;
+    background-color: rgb(25, 77, 221);
 }
 
 .closeButton:hover {
-    background-color: rgb(230, 230, 230);
+    background-color: rgb(29, 135, 255);
 }
 
 .closeIcon {
-    fill: rgb(70, 70, 70);
+    fill: rgb(230, 230, 230);
 }
 
 .notificationText {
@@ -127,21 +130,23 @@
 }
 
 .deleteButton {
+    background-color: rgb(25, 77, 221);
+    border-radius: 10px;
+    height: 50px;
+    margin-top: 20px;
     width: calc(100% - 30px);
     border: none;
-    margin-top: 20px;
-    border-radius: 10px;
-    color: white;
-    padding: 10px 15px 10px 15px;
-    font-family: "Oswald";
-    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
+    color: rgb(230, 230, 230);
+    font-family: "Oswald";
     font-size: 16px;
-    background-color: rgb(255, 50, 50);
 }
 
 .deleteButton:hover {
-    background-color: rgb(193, 36, 36);
+    background-color: rgb(29, 135, 255);
 }
 
 @media only screen and (max-width: 340px) {
