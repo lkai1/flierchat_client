@@ -1,13 +1,13 @@
 import styles from "./UserSettingsPage.module.css";
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { deleteUserService } from "../services/userServices.js";
+import { deleteUserService } from "../services/userServices.ts";
 import DeleteIcon from "../lib/icons/deleteIcon.svg?react";
 import CloseIcon from "../lib/icons/closeIcon.svg?react";
-import { logoutService } from "../services/authServices.js";
+import { logoutService } from "../services/authServices.ts";
 import ArrowLeftIcon from "../lib/icons/arrowLeftIcon.svg?react";
 import { SocketContext } from "../Contexts/SocketContext.ts";
-import { getUserChatsService } from "../services/chatServices.js";
+import { getUserChatsService } from "../services/chatServices.ts";
 
 const UserSettingsPage = (): React.JSX.Element => {
 

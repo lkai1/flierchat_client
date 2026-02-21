@@ -2,7 +2,7 @@ import { Routes, Route, BrowserRouter, Navigate } from "react-router-dom";
 import LoginPage from "../pages/LoginPage.tsx";
 import RegisterPage from "../pages/RegisterPage.tsx";
 import MainPage from "../pages/MainPage.tsx";
-import UserSettingsPage from "../pages/UserSettingsPage.js";
+import UserSettingsPage from "../pages/UserSettingsPage.tsx";
 import AuthRoute from "./AuthRoute.tsx";
 import NoAuthRoute from "./NoAuthRoute.tsx";
 import UserInfoProvider from "../Contexts/UserInfoProvider.tsx";

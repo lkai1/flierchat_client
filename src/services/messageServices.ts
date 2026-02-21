@@ -81,7 +81,7 @@ export const deleteUserMessageService = async (messageId: string): Promise<{ suc
 
     try {
         if (!validateMessageId(messageId)) {
-            result.message = "Viestin poistamisesssa esiintyi virhe.";
+            result.message = "Viestin poistamisessa esiintyi virhe.";
             return result;
         }
 

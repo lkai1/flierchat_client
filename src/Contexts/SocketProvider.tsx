@@ -1,16 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import { SelectedChatContext } from "./SelectedChatContext.ts";
 import { io } from "socket.io-client";
 import { UserInfoContext } from "./UserInfoContext.js";
 import { setTabInfoNewMessages } from "../utils/tabInfo.ts";
 import { SocketContext } from "./SocketContext.ts";
-
-const socket = io(
-    //production
-    "https://flierchatserver-production.up.railway.app",
-    //development
-    /* "http://localhost:5000", */
-    { autoConnect: false, withCredentials: true });
 
 const SocketProvider = (
     { children }: { children: React.JSX.Element }
@@ -28,8 +21,23 @@ const SocketProvider = (
     } = useContext(SelectedChatContext);
     const { userInfoState } = useContext(UserInfoContext);
 
+    const socket = useMemo(() => {
+        return io(
+            //production
+            "https://flierchatserver-production.up.railway.app",
+            //development
+            /* "http://localhost:5000", */
+            { autoConnect: false, withCredentials: true });
+    }, []);
+
     useEffect(() => {
-        socket.connect();
+        if (userInfoState.id) {
+            socket.connect();
+        }
+
+        return (): void => {
+            socket.disconnect();
+        };
     }, []);
 
     useEffect(() => {
@@ -56,9 +64,10 @@ const SocketProvider = (
         }) => {
             if ('id' in userInfoState && message.messageCreator.id !== userInfoState.id) { setTabInfoNewMessages(); }
             setSelectedChatState(prevState => {
+                if (prevState.id !== message.chatId) { return prevState; }
                 return { ...prevState, messages: [...prevState.messages, message] };
             });
-            setUpdateChatList(!updateChatList);
+            setUpdateChatList(prevState => { return !prevState; });
         });
 
         socket.on("messageDelete", (messageId) => {
@@ -76,7 +85,7 @@ const SocketProvider = (
         });
 
         socket.on("userDelete", () => {
-            setUpdateChatList(!updateChatList);
+            setUpdateChatList(prevState => { return !prevState; });
         });
 
         socket.on("chatParticipantDelete", ({ userId }: { userId: string }) => {
@@ -99,27 +108,27 @@ const SocketProvider = (
         });
 
         socket.on("chatCreate", () => {
-            setUpdateChatList(!updateChatList);
+            setUpdateChatList(prevState => { return !prevState; });
         });
 
         socket.on("emptySelectedChat", () => {
             emptySelectedChatState();
-            setUpdateChatList(!updateChatList);
+            setUpdateChatList(prevState => { return !prevState; });
         });
 
         socket.on("chatDelete", ({ chatId }) => {
-            setUpdateChatList(!updateChatList);
+            setUpdateChatList(prevState => { return !prevState; });
             if ('id' in selectedChatState && selectedChatState.id === chatId) { emptySelectedChatState(); }
         });
 
         return (): void => {
             socket.removeAllListeners();
         };
-    }, [addSelectedChatParticipant, deleteSelectedChatParticipant, emptySelectedChatState, selectedChatState, setSelectedChatState, updateChatList, userInfoState]);
+    }, []);
 
     useEffect(() => {
         socket.emit("onlineUsers");
-    }, []);
+    }, [socket]);
 
     const valuesToProvide = { onlineUserIds, socket, updateChatList };
 
