@@ -7,39 +7,11 @@
     border: 1px solid rgb(45, 45, 45);
 }
 
-.noChatsContainer {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: calc(100% - 80px);
-    width: 100%;
-}
-
-.noChatsText {
-    background-color: #1f222c;
-    padding: 30px 40px 30px 40px;
-    font-family: "Oswald";
-    font-size: 18px;
-    border-radius: 10px;
-    border: 2px solid rgb(120, 120, 120);
-    color: rgb(230, 230, 230);
-    text-align: center;
-}
-
-/* i think this container should be removed */
-.bottomButtonsContainer {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-}
-
 .addChatButton {
     background-color: rgb(25, 77, 221);
     border-radius: 10px;
     height: 50px;
-    width: calc(100%);
+    width: 100%;
     border: none;
     display: flex;
     justify-content: center;
@@ -58,4 +30,14 @@
     fill: rgb(230, 230, 230);
     height: 30px;
     width: 30px;
+}
+
+@media only screen and (max-width: 1100px) {
+    .mainContainer {
+        width: 100%;
+    }
+
+    .mainContainer[is-shown="false"] {
+        display: none;
+    }
 }

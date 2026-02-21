@@ -22,7 +22,7 @@ interface Chat {
     }[];
 }
 
-const ChatList = ({ chats, loading }: { chats: Chat[], loading: boolean }): React.JSX.Element => {
+const ChatList = ({ chats, loading, setViewSwitchState }: { chats: Chat[], loading: boolean, setViewSwitchState(): void }): React.JSX.Element => {
     const [chatItems, setChatItems] = useState<React.JSX.Element[]>([]);
 
     useEffect(() => {
@@ -38,6 +38,7 @@ const ChatList = ({ chats, loading }: { chats: Chat[], loading: boolean }): Reac
                             key={uuidv4()}
                             chat={chats[i]}
                             unreadMessagesAmount={unreadMessagesAmountInChat.data}
+                            setViewSwitchState={setViewSwitchState}
                         />
                     );
                 }

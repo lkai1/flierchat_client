@@ -61,3 +61,14 @@
 .sendMessageButton:hover {
     background-color: rgb(29, 135, 255);
 }
+
+@media only screen and (max-width: 1100px) {
+    .mainContainer[is-shown="false"] {
+        display: none;
+    }
+
+    .mainContainer {
+        width: 100%;
+        margin-left: 0;
+    }
+}

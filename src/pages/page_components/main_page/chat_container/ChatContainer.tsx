@@ -8,7 +8,11 @@ import { SocketContext } from "../../../../Contexts/SocketContext.ts";
 /* import { UserInfoContext } from "../../../../Contexts/UserInfoContext.ts"; */
 import { updateUnreadMessagesAmountInChatService } from "../../../../services/chatServices.ts";
 
-const ChatContainer = (): React.JSX.Element => {
+interface Props {
+    viewSwitchState: boolean;
+}
+
+const ChatContainer = ({ viewSwitchState }: Props): React.JSX.Element => {
 
     const [message, setMessage] = useState("");
     const { selectedChatState } = useContext(SelectedChatContext);
@@ -33,25 +37,15 @@ const ChatContainer = (): React.JSX.Element => {
         setMessage("");
     };
 
-    /* const chatIsGroup = Boolean(selectedChatState.isGroup); */
-    /* const chatTitle = chatIsGroup ? selectedChatState.chatName
-        : selectedChatState.chatParticipants.find(((participant) => { return participant.id !== userInfoState.id; }))?.username; */
 
     return (
         <div className={styles.mainContainer}
+            is-shown={viewSwitchState ? "true" : "false"}
             onClick={() => {
                 void updateUnreadMessagesAmountInChatService(selectedChatState.id);
             }}
         >
             <ChatSettings />
-            {/* <div className={styles.chatInfoContainer}>
-                <p className={styles.chatTypeText}>
-                    {chatIsGroup ? "Ryhmä:" : "Yksityinen:"}
-                </p>
-                <p className={styles.chatTitleText}>
-                    {chatTitle}
-                </p>
-            </div> */}
             <MessageList />
             <p className={notification ? styles.notificationShown : styles.notification}>{notification}</p>
             {selectedChatState.id &&

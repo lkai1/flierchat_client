@@ -24,7 +24,12 @@ interface Chat {
     }[];
 }
 
-const ChatsContainer = (): React.JSX.Element => {
+interface Props {
+    viewSwitchState: boolean;
+    setViewSwitchState(): void;
+}
+
+const ChatsContainer = ({ viewSwitchState, setViewSwitchState }: Props): React.JSX.Element => {
 
     const [showCreateNewChatModal, setShowCreateNewChatModal] = useState(false);
     const [chats, setChats] = useState<Chat[]>([]);
@@ -42,30 +47,21 @@ const ChatsContainer = (): React.JSX.Element => {
 
 
     return (
-        <div className={styles.mainContainer}>
-            <div className={styles.bottomButtonsContainer}>
-                <button className={styles.addChatButton}
-                    type="button"
-                    onClick={() => { setShowCreateNewChatModal(true); }}
-                >
-                    <AddIcon className={styles.addChatButtonImg} />
-                    <p>Luo uusi keskustelu </p>
-                </button>
-            </div>
+        <div className={styles.mainContainer}
+            is-shown={viewSwitchState ? "false" : "true"}
+        >
+            <button className={styles.addChatButton}
+                type="button"
+                onClick={() => { setShowCreateNewChatModal(true); }}
+            >
+                <AddIcon className={styles.addChatButtonImg} />
+                <p>Luo uusi keskustelu </p>
+            </button>
             <CreateNewChatModal
                 isShown={showCreateNewChatModal}
                 setIsShown={setShowCreateNewChatModal}
             />
-            {/* {chats.length === 0 && !loading ?
-                <div className={styles.noChatsContainer}>
-                    <p className={styles.noChatsText}>
-                        Sinulla ei ole keskusteluja
-                    </p>
-                </div>
-                : */}
-            <ChatList chats={chats} loading={loading} />
-            {/* } */}
-
+            <ChatList chats={chats} loading={loading} setViewSwitchState={setViewSwitchState} />
         </div>
     );
 };

@@ -22,7 +22,7 @@ interface Chat {
     }[];
 }
 
-const ChatItem = ({ chat, unreadMessagesAmount }: { chat: Chat, unreadMessagesAmount: number }
+const ChatItem = ({ chat, unreadMessagesAmount, setViewSwitchState }: { chat: Chat, unreadMessagesAmount: number, setViewSwitchState(): void }
 ): React.JSX.Element => {
 
     const { userInfoState, userInfoLoading } = useContext(UserInfoContext);
@@ -55,6 +55,7 @@ const ChatItem = ({ chat, unreadMessagesAmount }: { chat: Chat, unreadMessagesAm
             onClick={() => {
                 socket.emit("selectChat", { chatId: chat.id });
                 updateSelectedChatState(chat);
+                setViewSwitchState();
             }}
             is-selected={selectedChatState.id === chat.id ? "true" : "false"}
         >
