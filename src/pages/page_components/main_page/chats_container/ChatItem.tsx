@@ -3,8 +3,9 @@ import { UserInfoContext } from "../../../../Contexts/UserInfoContext.ts";
 import React, { useContext } from "react";
 import { SelectedChatContext } from "../../../../Contexts/SelectedChatContext.ts";
 import { SocketContext } from "../../../../Contexts/SocketContext.ts";
+import { Chat } from "../../../../lib/types/Chat.ts";
 
-interface Chat {
+/* interface Chat {
     id: string;
     chatName: string;
     chatParticipants: {
@@ -20,14 +21,19 @@ interface Chat {
         chatId: string;
         messageCreator: { id: string, username: string }
     }[];
+} */
+
+interface Props {
+    setViewSwitchState(): void;
+    chat: Chat
 }
 
-const ChatItem = ({ chat, unreadMessagesAmount, setViewSwitchState }: { chat: Chat, unreadMessagesAmount: number, setViewSwitchState(): void }
-): React.JSX.Element => {
+const ChatItem = ({ chat, setViewSwitchState }: Props): React.JSX.Element => {
 
     const { userInfoState, userInfoLoading } = useContext(UserInfoContext);
     const { updateSelectedChatState, selectedChatState } = useContext(SelectedChatContext);
-    const { socket, onlineUserIds } = useContext(SocketContext);
+    const { socket, onlineUserIds, getUnreadMessagesAmountForChat } = useContext(SocketContext);
+    const unreadMessagesAmount = getUnreadMessagesAmountForChat(chat.id);
 
     const chatIsGroup = Boolean(chat.isGroup);
 
@@ -60,7 +66,6 @@ const ChatItem = ({ chat, unreadMessagesAmount, setViewSwitchState }: { chat: Ch
             is-selected={selectedChatState.id === chat.id ? "true" : "false"}
         >
             <div className={styles.chatImageContainer}>
-                {/* this should be moved out of rendering and changed to simple variable */}
                 <p className={styles.chatNoImageText}>
                     {getChatTitle(chat, userInfoState, userInfoLoading).substring(0, 1)}
                 </p>

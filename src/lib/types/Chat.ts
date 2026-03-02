@@ -15,3 +15,8 @@ export interface Chat {
         messageCreator: { id: string, username: string }
     }[];
 }
+
+export interface ChatParticipant {
+    id: string;
+    username: string;
+}

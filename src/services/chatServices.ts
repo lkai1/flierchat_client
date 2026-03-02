@@ -1,6 +1,7 @@
 import { isAxiosError } from "axios";
 import api from "../api.ts";
 import { validateChatId, validateChatName, validateChatParticipantId, validateUsername } from "../utils/validation/chatValidation.ts";
+import { UnreadMessageInChat } from "../lib/types/Message.ts";
 
 interface Chat {
     id: string;
@@ -208,19 +209,24 @@ export const deleteChatService = async (chatId: string): Promise<{ success: bool
     return result;
 };
 
-export const getUnreadMessagesAmountInChatService = async (chatId: string): Promise<{ success: boolean, message: string, data: number }> => {
-    const result = { success: false, message: "", data: 0 };
+
+
+export const getAllUnreadMessagesAmountService = async (): Promise<{
+    success: boolean;
+    message: string;
+    data: UnreadMessageInChat[];
+}> => {
+    const result = {
+        success: false,
+        message: "",
+        data: [] as UnreadMessageInChat[]
+    };
 
     try {
-        if (!validateChatId(chatId)) {
-            result.message = "Chatin tunniste on epämuodostunut!";
-            return result;
-        }
-
-        const response = await api.get<number>("/chat/unread_messages", {
-            params: { chatId },
-            withCredentials: true
-        });
+        const response = await api.get<UnreadMessageInChat[]>(
+            "/chat/all_unread_messages_amount",
+            { withCredentials: true }
+        );
 
         result.success = true;
         result.data = response.data;
@@ -231,7 +237,7 @@ export const getUnreadMessagesAmountInChatService = async (chatId: string): Prom
     return result;
 };
 
-export const updateUnreadMessagesAmountInChatService = async (chatId: string): Promise<{ success: boolean, message: string }> => {
+export const clearUnreadMessagesAmountInChatService = async (chatId: string): Promise<{ success: boolean, message: string }> => {
     const result = { success: false, message: "" };
 
     try {

@@ -1,8 +1,8 @@
 
 export const setTabInfoNewMessages = (): void => {
-    document.title = "(new messages) FLIERCHAT";
+    document.title = "(new messages) Flierchat";
 };
 
 export const setTabInfoNoNewMessages = (): void => {
-    document.title = "FLIERCHAT";
+    document.title = "Flierchat";
 };

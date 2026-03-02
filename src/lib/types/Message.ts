@@ -6,4 +6,7 @@ export interface Message {
     messageCreator: { id: string; username: string };
 }
 
-//double check this type is correct
+export interface UnreadMessageInChat {
+    chatId: string;
+    amount: number;
+}

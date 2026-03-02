@@ -5,9 +5,8 @@ import { v4 as uuidv4 } from "uuid";
 import { UserInfoContext } from "../../../../Contexts/UserInfoContext.ts";
 import { getTimestampStringFromISODateTime } from "../../../../utils/timestamp.ts";
 import DeleteMessageMenu from "./message_list/DeleteMessageMenu.tsx";
-import { getUnreadMessagesAmountInChatService } from "../../../../services/chatServices.ts";
 import Linkify from "linkify-react";
-import { setTabInfoNoNewMessages } from "../../../../utils/tabInfo.ts";
+import { SocketContext } from "../../../../Contexts/SocketContext.ts";
 
 interface Message {
     id: string;
@@ -25,20 +24,11 @@ const MessageList = (): React.JSX.Element => {
     const [onHoverMessage, setOnHoverMessage] = useState("");
     const [messageListItemsState, setMessageListItemsState] = useState<React.JSX.Element[]>([]);
     const [messageListContainerState, setMessageListContainerState] = useState<React.JSX.Element>(<></>);
-    const [unreadMessagesAmountState, setUnreadMessagesAmountState] = useState(0);
     const scrolledToFirstUnreadMessageElementRef = useRef(false);
     const firstUnreadMessageElementRef = useRef<HTMLDivElement | null>(null);
     const messageListRef = useRef<HTMLDivElement | null>(null);
-
-
-    useEffect(() => {
-        const handleOnRenderEvents = async (): Promise<void> => {
-            const unreadMessagesAmount = await getUnreadMessagesAmountInChatService(selectedChatState.id);
-            setUnreadMessagesAmountState(unreadMessagesAmount.data);
-        };
-
-        void handleOnRenderEvents();
-    }, [selectedChatState.id]);
+    const { getUnreadMessagesAmountForChat, clearUnreadMessagesForChat } = useContext(SocketContext);
+    const unreadMessagesAmount = getUnreadMessagesAmountForChat(selectedChatState.id);
 
     useEffect(() => {
         const UsernameAndTimestamp = ({ message }: { message: Message }): React.JSX.Element => {
@@ -66,7 +56,7 @@ const MessageList = (): React.JSX.Element => {
                 const message = selectedChatState.messages[i];
                 const messageElement = <div
                     key={uuidv4()}
-                    ref={(i === selectedChatState.messages.length - unreadMessagesAmountState) ? firstUnreadMessageElementRef : null}
+                    ref={(i === selectedChatState.messages.length - unreadMessagesAmount) ? firstUnreadMessageElementRef : null}
                     className={userInfoState.id === message.messageCreator.id ? styles.userMessageContainer : styles.messageContainer}
                     onMouseEnter={(event) => {
                         event.preventDefault();
@@ -93,8 +83,8 @@ const MessageList = (): React.JSX.Element => {
                     </div>
                 </div>;
 
-                if (i === selectedChatState.messages.length - unreadMessagesAmountState) {
-                    messageItemsList.push(<p key={uuidv4()} className={styles.newMessagesInfoText}>{`${unreadMessagesAmountState} uutta viestiä`}</p>);
+                if (i === selectedChatState.messages.length - unreadMessagesAmount) {
+                    messageItemsList.push(<p key={uuidv4()} className={styles.newMessagesInfoText}>{`${unreadMessagesAmount} uutta viestiä`}</p>);
                 }
                 messageItemsList.push(messageElement);
             }
@@ -102,7 +92,7 @@ const MessageList = (): React.JSX.Element => {
         };
         handleCreateMessageItemsList();
 
-    }, [onHoverMessage, selectedChatState.id, selectedChatState.messages, unreadMessagesAmountState, userInfoState.id]);
+    }, [onHoverMessage, selectedChatState.id, selectedChatState.messages, unreadMessagesAmount, userInfoState.id]);
 
     useEffect(() => {
         const handleCreateMessageListContainer = (): void => {
@@ -110,8 +100,7 @@ const MessageList = (): React.JSX.Element => {
                 <div className={styles.messageListContainer}
                     ref={messageListRef}
                     onClick={() => {
-                        setUnreadMessagesAmountState(0);
-                        setTabInfoNoNewMessages();
+                        clearUnreadMessagesForChat(selectedChatState.id);
                     }}
                 >
                     {messageListItemsState}
@@ -119,13 +108,13 @@ const MessageList = (): React.JSX.Element => {
             );
         };
         handleCreateMessageListContainer();
-    }, [messageListItemsState, selectedChatState.id, unreadMessagesAmountState]);
+    }, [messageListItemsState, selectedChatState.id]);
 
 
     if (
         firstUnreadMessageElementRef.current
         && !scrolledToFirstUnreadMessageElementRef.current
-        && unreadMessagesAmountState
+        && unreadMessagesAmount
     ) {
         firstUnreadMessageElementRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
         scrolledToFirstUnreadMessageElementRef.current = true;

@@ -6,7 +6,6 @@ import { createMessageService } from "../../../../services/messageServices.ts";
 import ChatSettings from "./ChatSettings.tsx";
 import { SocketContext } from "../../../../Contexts/SocketContext.ts";
 /* import { UserInfoContext } from "../../../../Contexts/UserInfoContext.ts"; */
-import { updateUnreadMessagesAmountInChatService } from "../../../../services/chatServices.ts";
 
 interface Props {
     viewSwitchState: boolean;
@@ -17,7 +16,7 @@ const ChatContainer = ({ viewSwitchState }: Props): React.JSX.Element => {
     const [message, setMessage] = useState("");
     const { selectedChatState } = useContext(SelectedChatContext);
     /* const { userInfoState } = useContext(UserInfoContext); */
-    const { socket } = useContext(SocketContext);
+    const { socket, clearUnreadMessagesForChat } = useContext(SocketContext);
     const [notification, setNotification] = useState("");
 
     const handleFormSubmit = async (
@@ -39,12 +38,7 @@ const ChatContainer = ({ viewSwitchState }: Props): React.JSX.Element => {
 
 
     return (
-        <div className={styles.mainContainer}
-            is-shown={viewSwitchState ? "true" : "false"}
-            onClick={() => {
-                void updateUnreadMessagesAmountInChatService(selectedChatState.id);
-            }}
-        >
+        <div className={styles.mainContainer} is-shown={viewSwitchState ? "true" : "false"}>
             <ChatSettings />
             <MessageList />
             <p className={notification ? styles.notificationShown : styles.notification}>{notification}</p>
@@ -52,6 +46,7 @@ const ChatContainer = ({ viewSwitchState }: Props): React.JSX.Element => {
                 <form
                     onSubmit={(event) => {
                         void handleFormSubmit(event, selectedChatState.id, message, setMessage);
+                        clearUnreadMessagesForChat(selectedChatState.id);
                     }}
                 >
                     <div className={styles.createMessageFormContentContainer}>
