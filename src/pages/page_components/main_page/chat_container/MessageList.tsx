@@ -24,31 +24,32 @@ const MessageList = (): React.JSX.Element => {
     const messageListRef = useRef<HTMLDivElement | null>(null);
     const { clearUnreadMessagesForChat } = useContext(SocketContext);
 
-    const scrollHeightBeforeLoadRef = useRef<number>(0);
-    const wasLoadingMoreRef = useRef(false);
+    const prevScrollTopRef = useRef<number>(0);
+    const prevScrollHeightRef = useRef<number>(0);
 
     useLayoutEffect(() => {
-        if (!wasLoadingMoreRef.current || !messageListRef.current) { return; }
-        wasLoadingMoreRef.current = false;
+        if (!messageListRef.current) { return; }
+        prevScrollTopRef.current = messageListRef.current.scrollTop;
+        prevScrollHeightRef.current = messageListRef.current.scrollHeight;
+    });
+
+    useLayoutEffect(() => {
+        if (!messageListRef.current) { return; }
         const newScrollHeight = messageListRef.current.scrollHeight;
-        messageListRef.current.scrollTop = newScrollHeight - scrollHeightBeforeLoadRef.current;
+        const scrollHeightDiff = newScrollHeight - prevScrollHeightRef.current;
+
+        if (scrollHeightDiff > 0 && prevScrollTopRef.current > 0) {
+            messageListRef.current.scrollTop = prevScrollTopRef.current + scrollHeightDiff;
+        }
     }, [selectedChatState.messages]);
 
     const topSentinelRef = useRef<HTMLDivElement | null>(null);
 
-    const handleLoadMore = useCallback((): void => {
-        if (messageListRef.current) {
-            scrollHeightBeforeLoadRef.current = messageListRef.current.scrollHeight;
-            wasLoadingMoreRef.current = true;
-        }
-        void loadMoreMessages();
-    }, [loadMoreMessages]);
-
     const handleSentinelIntersection = useCallback((entries: IntersectionObserverEntry[]): void => {
         if (entries[0].isIntersecting && hasMoreMessages && !isLoadingMoreMessages) {
-            handleLoadMore();
+            void loadMoreMessages();
         }
-    }, [hasMoreMessages, isLoadingMoreMessages, handleLoadMore]);
+    }, [hasMoreMessages, isLoadingMoreMessages, loadMoreMessages]);
 
     const handleSentinelIntersectionRef = useRef(handleSentinelIntersection);
     useEffect(() => {
