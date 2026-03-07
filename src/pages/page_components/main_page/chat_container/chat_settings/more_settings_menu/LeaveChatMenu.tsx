@@ -10,14 +10,14 @@ const LeaveChatMenu = (): React.JSX.Element => {
 
     const [isMenuShown, setIsMenuShown] = useState(false);
     const [notification, setNotification] = useState("");
-    const { selectedChatState } = useContext(SelectedChatContext);
     const { userInfoState } = useContext(UserInfoContext);
+    const { selectedChatState, emptySelectedChatState } = useContext(SelectedChatContext);
     const { socket } = useContext(SocketContext);
 
     const handleLeaveChatClick = async (chatId: string, userId: string): Promise<void> => {
         const result = await removeChatParticipantService(chatId, userId);
         if (result.success) {
-            socket.emit("emptySelectedChat");
+            emptySelectedChatState();
             socket.emit("chatParticipantRemove", { chatId, participantId: userId });
         } else {
             setNotification(result.message);

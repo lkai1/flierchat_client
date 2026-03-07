@@ -1,10 +1,8 @@
 import axios from 'axios';
+import { API_URL } from './utils/env';
 
 const api = axios.create({
-    //production
-    baseURL: "https://flierchatserver-production.up.railway.app/api"
-    //development
-    /* baseURL: "http://localhost:5000/api", */
+    baseURL: API_URL
 });
 
 export default api;

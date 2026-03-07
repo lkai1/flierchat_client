@@ -1,5 +1,4 @@
 
-
 export const validateChatId = (chatId: string): boolean => {
     return Boolean(chatId
         && typeof chatId === "string"
@@ -8,7 +7,8 @@ export const validateChatId = (chatId: string): boolean => {
 
 export const validateMessage = (message: string): boolean => {
     return Boolean(message
-        && typeof message === "string");
+        && typeof message === "string"
+        && message.length <= 2000);
 };
 
 export const validateMessageId = (messageId: string): boolean => {

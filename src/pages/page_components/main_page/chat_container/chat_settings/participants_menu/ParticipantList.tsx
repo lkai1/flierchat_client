@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import styles from "./ParticipantList.module.css";
 import { SelectedChatContext } from "../../../../../../Contexts/SelectedChatContext.ts";
 import ParticipantItem from "./ParticipantItem.tsx";
-import { v4 as uuidv4 } from "uuid";
 import { SocketContext } from "../../../../../../Contexts/SocketContext.ts";
 
 const ParticipantList = (): React.JSX.Element => {
@@ -15,7 +14,7 @@ const ParticipantList = (): React.JSX.Element => {
             {selectedChatState.chatParticipants.length > 0 &&
                 selectedChatState.chatParticipants.map((chatParticipant) => {
                     return <ParticipantItem
-                        key={uuidv4()}
+                        key={chatParticipant.id}
                         userId={chatParticipant.id}
                         username={chatParticipant.username}
                         onlineUserIds={onlineUserIds}

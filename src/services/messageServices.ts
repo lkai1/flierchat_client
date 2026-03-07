@@ -9,39 +9,37 @@ interface Message {
     messageCreator: { id: string, username: string }
 }
 
-export const getChatMessagesService = async (chatId: string): Promise<Message[] | []> => {
-    try {
-        const response = await api.get<Message[]>(
-            "/message",
-            { params: { chatId }, withCredentials: true }
-        );
+const MESSAGES_PAGE_SIZE = 50;
 
+export const getChatMessagesService = async (
+    chatId: string,
+    limit: number = MESSAGES_PAGE_SIZE,
+    offset = 0
+): Promise<{ messages: Message[], total: number }> => {
+    try {
+        const response = await api.get<{ messages: Message[], total: number }>(
+            "/message",
+            { params: { chatId, limit, offset }, withCredentials: true }
+        );
         return response.data;
     } catch {
-        return [];
+        return { messages: [], total: 0 };
     }
 };
 
 export const createMessageService = async (chatId: string, message: string): Promise<{ success: boolean, message: Message | string }> => {
-
     const result: { success: boolean, message: string | Message } = { success: false, message: "" };
     try {
         if (!message) { return result; }
 
-        if (!validateChatId(chatId) ||
-            !validateMessage(message)) {
+        if (!validateChatId(chatId) || !validateMessage(message)) {
             result.message = "Viestin lähetyksessä esiintyi virhe.";
             return result;
         }
 
         const response = await api.post<Message>("/message",
-            {
-                message,
-                chatId
-            },
-            {
-                withCredentials: true
-            }
+            { message, chatId },
+            { withCredentials: true }
         );
 
         result.success = true;
@@ -63,9 +61,7 @@ export const deleteAllUserMessagesFromChatService = async (chatId: string): Prom
         }
 
         await api.delete<string>("/message/all_from_user", {
-            data: {
-                chatId
-            },
+            data: { chatId },
             withCredentials: true
         });
         result.success = true;
@@ -86,9 +82,7 @@ export const deleteUserMessageService = async (messageId: string): Promise<{ suc
         }
 
         await api.delete("/message", {
-            data: {
-                messageId
-            },
+            data: { messageId },
             withCredentials: true
         });
         result.success = true;

@@ -1,7 +1,9 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useCallback } from "react";
 import { getChatMessagesService } from "../services/messageServices.ts";
 import { SelectedChatContext } from "./SelectedChatContext.ts";
 import { Chat } from "../lib/types/Chat.ts";
+
+const MESSAGES_PAGE_SIZE = 50;
 
 const SelectedChatProvider = ({ children }: { children: React.JSX.Element; }): React.JSX.Element => {
 
@@ -16,34 +18,93 @@ const SelectedChatProvider = ({ children }: { children: React.JSX.Element; }): R
         };
     }, []);
 
-
     const [selectedChatState, setSelectedChatState] = useState<Chat>(emptyChat);
+    const [messagesOffset, setMessagesOffset] = useState(0);
+    const [hasMoreMessages, setHasMoreMessages] = useState(false);
+    const [isLoadingMoreMessages, setIsLoadingMoreMessages] = useState(false);
 
-    const valuesToProvide = {
-        selectedChatState,
-        setSelectedChatState,
-        updateSelectedChatState: async (chat: Chat): Promise<void> => {
-            const messages = await getChatMessagesService(chat.id)
-                .then((chatMessages) => {
-                    return chatMessages;
-                }).catch(() => { return []; });
+    const updateSelectedChatState = useCallback(async (chat: Chat): Promise<void> => {
+        const result = await getChatMessagesService(chat.id, MESSAGES_PAGE_SIZE, 0)
+            .catch(() => { return { messages: [], total: 0 }; });
 
-            setSelectedChatState({ ...chat, messages });
-        },
-        addSelectedChatParticipant: (participant: { id: string, username: string }): void => {
-            setSelectedChatState((prevState) => {
-                return { ...prevState, chatParticipants: [...prevState.chatParticipants, participant] };
-            });
-        },
-        deleteSelectedChatParticipant: (participantId: string): void => {
-            setSelectedChatState((prevState) => {
-                return { ...prevState, chatParticipants: [...prevState.chatParticipants.filter((participant) => { return participant.id !== participantId; })] };
-            });
-        },
-        emptySelectedChatState: (): void => {
-            setSelectedChatState(emptyChat);
+        setSelectedChatState({ ...chat, messages: result.messages });
+        setMessagesOffset(MESSAGES_PAGE_SIZE);
+        setHasMoreMessages(result.total > MESSAGES_PAGE_SIZE);
+    }, []);
+
+    const loadMoreMessages = useCallback(async (): Promise<void> => {
+        if (isLoadingMoreMessages) { return; }
+
+        setIsLoadingMoreMessages(true);
+        try {
+            const result = await getChatMessagesService(
+                selectedChatState.id,
+                MESSAGES_PAGE_SIZE,
+                messagesOffset
+            );
+
+            if (result.messages.length > 0) {
+                setSelectedChatState((prev) => {
+                    return { ...prev, messages: [...result.messages, ...prev.messages] };
+                });
+            }
+
+            const newOffset = messagesOffset + MESSAGES_PAGE_SIZE;
+            setMessagesOffset(newOffset);
+            setHasMoreMessages(newOffset < result.total);
+        } catch {
+            // silently fail — user can scroll again to retry
+        } finally {
+            setIsLoadingMoreMessages(false);
         }
-    };
+    }, [selectedChatState.id, messagesOffset, isLoadingMoreMessages]);
+
+    const addSelectedChatParticipant = useCallback((participant: { id: string, username: string }): void => {
+        setSelectedChatState((prevState) => {
+            return { ...prevState, chatParticipants: [...prevState.chatParticipants, participant] };
+        });
+    }, []);
+
+    const deleteSelectedChatParticipant = useCallback((participantId: string): void => {
+        setSelectedChatState((prevState) => {
+            return {
+                ...prevState,
+                chatParticipants: prevState.chatParticipants.filter((participant) => {
+                    return participant.id !== participantId;
+                })
+            };
+        });
+    }, []);
+
+    const emptySelectedChatState = useCallback((): void => {
+        setSelectedChatState(emptyChat);
+        setMessagesOffset(0);
+        setHasMoreMessages(false);
+        setIsLoadingMoreMessages(false);
+    }, [emptyChat]);
+
+    const valuesToProvide = useMemo(() => {
+        return {
+            selectedChatState,
+            setSelectedChatState,
+            updateSelectedChatState,
+            addSelectedChatParticipant,
+            deleteSelectedChatParticipant,
+            emptySelectedChatState,
+            hasMoreMessages,
+            isLoadingMoreMessages,
+            loadMoreMessages
+        };
+    }, [
+        selectedChatState,
+        updateSelectedChatState,
+        addSelectedChatParticipant,
+        deleteSelectedChatParticipant,
+        emptySelectedChatState,
+        hasMoreMessages,
+        isLoadingMoreMessages,
+        loadMoreMessages
+    ]);
 
     return (
         <SelectedChatContext.Provider value={valuesToProvide}>

@@ -31,7 +31,7 @@ const ParticipantItem = ({ userId, username, onlineUserIds }: { userId: string, 
                         </p>
                     </div>
                 </div>
-                <RemoveParticipantMenu participantId={userId} chatId={selectedChatState.id} />
+                <RemoveParticipantMenu participantId={userId} chatId={selectedChatState.id} creatorId={selectedChatState.creatorId} />
             </div>
         </div >
     );

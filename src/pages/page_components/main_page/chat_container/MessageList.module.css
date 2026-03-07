@@ -141,6 +141,17 @@
     color: rgb(220, 220, 220);
 }
 
+.loadingMoreContainer {
+    display: flex;
+    justify-content: center;
+    padding: 8px;
+}
+
+.loadingMoreText {
+    font-size: 12px;
+    color: #888;
+}
+
 .newMessagesInfoText {
     font-family: "Oswald";
     margin: 0;

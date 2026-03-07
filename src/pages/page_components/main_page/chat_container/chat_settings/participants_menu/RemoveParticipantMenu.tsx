@@ -5,7 +5,7 @@ import { removeChatParticipantService } from "../../../../../../services/chatSer
 import { SocketContext } from "../../../../../../Contexts/SocketContext.ts";
 import { UserInfoContext } from "../../../../../../Contexts/UserInfoContext.ts";
 
-const RemoveParticipantMenu = ({ participantId, chatId }: { participantId: string, chatId: string }): React.JSX.Element => {
+const RemoveParticipantMenu = ({ participantId, chatId, creatorId }: { participantId: string, chatId: string, creatorId: string }): React.JSX.Element => {
 
     const [isMenuShown, setIsMenuShown] = useState(false);
     const [notification, setNotification] = useState("");
@@ -23,7 +23,7 @@ const RemoveParticipantMenu = ({ participantId, chatId }: { participantId: strin
 
     return (
         <div className={styles.mainContainer}>
-            {userInfoState.id !== participantId &&
+            {userInfoState.id !== participantId && userInfoState.id === creatorId &&
                 <button className={styles.openMenuButton}
                     type="button"
                     onClick={() => { setIsMenuShown(!isMenuShown); }}

@@ -10,6 +10,9 @@ interface Context {
     deleteSelectedChatParticipant(id: string): void;
     addSelectedChatParticipant(participant: { id: string, username: string }): void;
     emptySelectedChatState(): void;
+    hasMoreMessages: boolean;
+    isLoadingMoreMessages: boolean;
+    loadMoreMessages(): Promise<void>;
 }
 
 export const SelectedChatContext = createContext<Context>({
@@ -25,5 +28,8 @@ export const SelectedChatContext = createContext<Context>({
     updateSelectedChatState: () => { },
     deleteSelectedChatParticipant: () => { },
     addSelectedChatParticipant: () => { },
-    emptySelectedChatState: () => { }
+    emptySelectedChatState: () => { },
+    hasMoreMessages: false,
+    isLoadingMoreMessages: false,
+    loadMoreMessages: async () => { }
 });

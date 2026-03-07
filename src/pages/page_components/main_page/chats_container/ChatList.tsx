@@ -1,6 +1,5 @@
 import styles from "./ChatList.module.css";
 import ChatItem from "./ChatItem.tsx";
-import { v4 as uuidv4 } from 'uuid';
 import React, { useEffect, useState } from "react";
 import { Chat } from "../../../../lib/types/Chat.ts";
 
@@ -15,25 +14,25 @@ const ChatList = ({ chats, loading, setViewSwitchState }: Props): React.JSX.Elem
 
     useEffect(() => {
         const createChatItems = (): void => {
-            const chatItemsList = [];
-
-            if (chats.length > 0) {
-                for (let i = 0; i < chats.length; i++) {
-
-                    chatItemsList.push(
-                        <ChatItem
-                            key={uuidv4()}
-                            chat={chats[i]}
-                            setViewSwitchState={setViewSwitchState}
-                        />
-                    );
-                }
-                setChatItems(chatItemsList);
+            if (chats.length === 0) {
+                setChatItems([]);
+                return;
             }
+
+            const chatItemsList = [];
+            for (let i = 0; i < chats.length; i++) {
+                chatItemsList.push(
+                    <ChatItem
+                        key={chats[i].id}
+                        chat={chats[i]}
+                        setViewSwitchState={setViewSwitchState}
+                    />
+                );
+            }
+            setChatItems(chatItemsList);
         };
 
         createChatItems();
-
     }, [chats]);
 
     return (

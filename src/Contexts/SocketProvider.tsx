@@ -1,10 +1,11 @@
-import React, { useContext, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
 import { SelectedChatContext } from "./SelectedChatContext.ts";
 import { io, Socket } from "socket.io-client";
 import { UserInfoContext } from "./UserInfoContext.js";
 import { SocketContext } from "./SocketContext.ts";
 import { Message, UnreadMessageInChat } from "../lib/types/Message.ts";
 import { clearUnreadMessagesAmountInChatService, getAllUnreadMessagesAmountService } from "../services/chatServices.ts";
+import { SOCKET_URL } from "../utils/env.ts";
 
 
 const SocketProvider = ({ children }: { children: React.JSX.Element }): React.JSX.Element => {
@@ -22,22 +23,37 @@ const SocketProvider = ({ children }: { children: React.JSX.Element }): React.JS
 
     const { userInfoState } = useContext(UserInfoContext);
 
-    const clearUnreadMessagesForChat = async (chatId: string): Promise<void> => {
-        const result = await clearUnreadMessagesAmountInChatService(selectedChatState.id);
+    // refs so socket handlers always read latest values without needing them as dependencies
+    const selectedChatStateRef = useRef(selectedChatState);
+    useEffect(() => { selectedChatStateRef.current = selectedChatState; }, [selectedChatState]);
+
+    const userInfoStateRef = useRef(userInfoState);
+    useEffect(() => { userInfoStateRef.current = userInfoState; }, [userInfoState]);
+
+    const emptySelectedChatStateRef = useRef(emptySelectedChatState);
+    useEffect(() => { emptySelectedChatStateRef.current = emptySelectedChatState; }, [emptySelectedChatState]);
+
+    const deleteSelectedChatParticipantRef = useRef(deleteSelectedChatParticipant);
+    useEffect(() => { deleteSelectedChatParticipantRef.current = deleteSelectedChatParticipant; }, [deleteSelectedChatParticipant]);
+
+    const addSelectedChatParticipantRef = useRef(addSelectedChatParticipant);
+    useEffect(() => { addSelectedChatParticipantRef.current = addSelectedChatParticipant; }, [addSelectedChatParticipant]);
+
+    const clearUnreadMessagesForChat = useCallback(async (chatId: string): Promise<void> => {
+        const result = await clearUnreadMessagesAmountInChatService(chatId);
         if (result.success) {
             setUnreadMessagesInChats((prevState) => {
                 return prevState.filter((value) => { return value.chatId !== chatId; });
             });
         }
-    };
+    }, []);
 
-    const getUnreadMessagesAmountForChat = (chatId: string): number => {
+    const getUnreadMessagesAmountForChat = useCallback((chatId: string): number => {
         const unreadMessagesInChat = unreadMessagesInChats.find((value) => {
             return value.chatId === chatId;
         });
-
         return unreadMessagesInChat ? unreadMessagesInChat.amount : 0;
-    };
+    }, [unreadMessagesInChats]);
 
     useEffect(() => {
         const getUnreadMessages = async (): Promise<void> => {
@@ -54,15 +70,10 @@ const SocketProvider = ({ children }: { children: React.JSX.Element }): React.JS
     }, [userInfoState.id]);
 
     const socket: Socket = useMemo(() => {
-        return io(
-            //production
-            "https://flierchatserver-production.up.railway.app",
-            //development
-            /* "http://localhost:5000", */
-            {
-                autoConnect: false,
-                withCredentials: true
-            });
+        return io(SOCKET_URL, {
+            autoConnect: false,
+            withCredentials: true
+        });
     }, []);
 
     useEffect(() => {
@@ -95,7 +106,6 @@ const SocketProvider = ({ children }: { children: React.JSX.Element }): React.JS
         };
 
         const handleMessage = (message: Message): void => {
-
             setSelectedChatState((prevState) => {
                 if (prevState.id === message.chatId) {
                     return { ...prevState, messages: [...prevState.messages, message] };
@@ -103,7 +113,10 @@ const SocketProvider = ({ children }: { children: React.JSX.Element }): React.JS
                 return prevState;
             });
 
-            if (message.messageCreator.id !== userInfoState.id) {
+            if (
+                message.messageCreator.id !== userInfoStateRef.current.id &&
+                selectedChatStateRef.current.id !== message.chatId
+            ) {
                 setUnreadMessagesInChats((prevState) => {
                     const existing = prevState.find((value) => { return value.chatId === message.chatId; });
 
@@ -112,8 +125,7 @@ const SocketProvider = ({ children }: { children: React.JSX.Element }): React.JS
                             return value.chatId === message.chatId
                                 ? { ...value, amount: value.amount + 1 }
                                 : value;
-                        }
-                        );
+                        });
                     }
 
                     return [...prevState, { chatId: message.chatId, amount: 1 }];
@@ -140,29 +152,42 @@ const SocketProvider = ({ children }: { children: React.JSX.Element }): React.JS
         };
 
         const handleChatParticipantDelete = ({ userId }: { userId: string }): void => {
-            deleteSelectedChatParticipant(userId);
+            deleteSelectedChatParticipantRef.current(userId);
+            setUpdateChatList((prevState) => { return !prevState; });
         };
 
-        const handleChatParticipantRemove = ({ participantId }: { participantId: string, chatId: string }): void => {
-            if (participantId === userInfoState.id) {
+        const handleChatParticipantRemove = ({ participantId, chatId }: { participantId: string, chatId: string }): void => {
+            if (participantId === userInfoStateRef.current.id) {
                 setUpdateChatList((prevState) => { return !prevState; });
+                if (selectedChatStateRef.current.id === chatId) {
+                    emptySelectedChatStateRef.current();
+                }
+            } else {
+                setUpdateChatList((prevState) => { return !prevState; });
+                if (selectedChatStateRef.current.id === chatId) {
+                    deleteSelectedChatParticipantRef.current(participantId);
+                }
             }
-            deleteSelectedChatParticipant(participantId);
         };
 
         const handleChatParticipantAdd = ({ chatParticipant }: { chatParticipant: { id: string; username: string } }): void => {
-            addSelectedChatParticipant(chatParticipant);
+            addSelectedChatParticipantRef.current(chatParticipant);
+            setUpdateChatList((prevState) => { return !prevState; });
         };
 
         const handleChatCreate = (): void => { setUpdateChatList((prevState) => { return !prevState; }); };
         const handleUserDelete = (): void => { setUpdateChatList((prevState) => { return !prevState; }); };
+
         const handleEmptySelectedChat = (): void => {
-            emptySelectedChatState();
+            emptySelectedChatStateRef.current();
             setUpdateChatList((prevState) => { return !prevState; });
         };
+
         const handleChatDelete = ({ chatId }: { chatId: string }): void => {
             setUpdateChatList((prevState) => { return !prevState; });
-            if (selectedChatState.id === chatId) { emptySelectedChatState(); }
+            if (selectedChatStateRef.current.id === chatId) {
+                emptySelectedChatStateRef.current();
+            }
         };
 
         socket.on("userConnected", handleUserConnected);
@@ -184,10 +209,11 @@ const SocketProvider = ({ children }: { children: React.JSX.Element }): React.JS
         return (): void => {
             socket.removeAllListeners();
         };
-        /* check what exactly do you want to put in the dependency array */
-    }, [socket, userInfoState.id, selectedChatState.id, addSelectedChatParticipant, deleteSelectedChatParticipant, emptySelectedChatState, setSelectedChatState]);
+    }, [socket]);
 
-    const valuesToProvide = { onlineUserIds, socket, updateChatList, unreadMessagesInChats, clearUnreadMessagesForChat, getUnreadMessagesAmountForChat };
+    const valuesToProvide = useMemo(() => {
+        return { onlineUserIds, socket, updateChatList, unreadMessagesInChats, clearUnreadMessagesForChat, getUnreadMessagesAmountForChat };
+    }, [onlineUserIds, socket, updateChatList, unreadMessagesInChats, clearUnreadMessagesForChat, getUnreadMessagesAmountForChat]);
 
     return (
         <SocketContext.Provider value={valuesToProvide}>
