@@ -27,13 +27,6 @@ const MessageList = (): React.JSX.Element => {
     const scrollHeightBeforeLoadRef = useRef<number>(0);
     const wasLoadingMoreRef = useRef(false);
 
-    useEffect(() => {
-        if (isLoadingMoreMessages) {
-            wasLoadingMoreRef.current = true;
-            scrollHeightBeforeLoadRef.current = messageListRef.current?.scrollHeight ?? 0;
-        }
-    }, [isLoadingMoreMessages]);
-
     useLayoutEffect(() => {
         if (!wasLoadingMoreRef.current || !messageListRef.current) { return; }
         wasLoadingMoreRef.current = false;
@@ -43,11 +36,19 @@ const MessageList = (): React.JSX.Element => {
 
     const topSentinelRef = useRef<HTMLDivElement | null>(null);
 
+    const handleLoadMore = useCallback((): void => {
+        if (messageListRef.current) {
+            scrollHeightBeforeLoadRef.current = messageListRef.current.scrollHeight;
+            wasLoadingMoreRef.current = true;
+        }
+        void loadMoreMessages();
+    }, [loadMoreMessages]);
+
     const handleSentinelIntersection = useCallback((entries: IntersectionObserverEntry[]): void => {
         if (entries[0].isIntersecting && hasMoreMessages && !isLoadingMoreMessages) {
-            void loadMoreMessages();
+            handleLoadMore();
         }
-    }, [hasMoreMessages, isLoadingMoreMessages, loadMoreMessages]);
+    }, [hasMoreMessages, isLoadingMoreMessages, handleLoadMore]);
 
     const handleSentinelIntersectionRef = useRef(handleSentinelIntersection);
     useEffect(() => {
@@ -138,7 +139,6 @@ const MessageList = (): React.JSX.Element => {
         handleCreateMessageItemsList();
 
     }, [onHoverMessage, selectedChatState.id, selectedChatState.messages, userInfoState.id, isLoadingMoreMessages]);
-
 
     return (
         <div className={styles.mainContainer}>
