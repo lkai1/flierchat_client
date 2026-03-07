@@ -28,12 +28,12 @@ const SelectedChatProvider = ({ children }: { children: React.JSX.Element; }): R
             .catch(() => { return { messages: [], total: 0 }; });
 
         setSelectedChatState({ ...chat, messages: result.messages });
-        setMessagesOffset(MESSAGES_PAGE_SIZE);
-        setHasMoreMessages(result.total > MESSAGES_PAGE_SIZE);
+        setMessagesOffset(result.messages.length);
+        setHasMoreMessages(result.total > result.messages.length);
     }, []);
 
     const loadMoreMessages = useCallback(async (): Promise<void> => {
-        if (isLoadingMoreMessages) { return; }
+        if (isLoadingMoreMessages || !hasMoreMessages) { return; }
 
         setIsLoadingMoreMessages(true);
         try {
@@ -47,17 +47,18 @@ const SelectedChatProvider = ({ children }: { children: React.JSX.Element; }): R
                 setSelectedChatState((prev) => {
                     return { ...prev, messages: [...result.messages, ...prev.messages] };
                 });
+                const newOffset = messagesOffset + result.messages.length;
+                setMessagesOffset(newOffset);
+                setHasMoreMessages(newOffset < result.total);
+            } else {
+                setHasMoreMessages(false);
             }
-
-            const newOffset = messagesOffset + MESSAGES_PAGE_SIZE;
-            setMessagesOffset(newOffset);
-            setHasMoreMessages(newOffset < result.total);
         } catch {
-            // silently fail — user can scroll again to retry
+            // silently fail
         } finally {
             setIsLoadingMoreMessages(false);
         }
-    }, [selectedChatState.id, messagesOffset, isLoadingMoreMessages]);
+    }, [selectedChatState.id, messagesOffset, isLoadingMoreMessages, hasMoreMessages]);
 
     const addSelectedChatParticipant = useCallback((participant: { id: string, username: string }): void => {
         setSelectedChatState((prevState) => {

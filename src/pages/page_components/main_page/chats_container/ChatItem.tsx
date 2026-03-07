@@ -5,23 +5,6 @@ import { SelectedChatContext } from "../../../../Contexts/SelectedChatContext.ts
 import { SocketContext } from "../../../../Contexts/SocketContext.ts";
 import { Chat } from "../../../../lib/types/Chat.ts";
 
-/* interface Chat {
-    id: string;
-    chatName: string;
-    chatParticipants: {
-        id: string;
-        username: string;
-    }[];
-    creatorId: string;
-    isGroup: boolean | null;
-    messages: {
-        id: string;
-        value: string;
-        timestamp: string;
-        chatId: string;
-        messageCreator: { id: string, username: string }
-    }[];
-} */
 
 interface Props {
     setViewSwitchState(): void;
@@ -50,7 +33,6 @@ const ChatItem = ({ chat, setViewSwitchState }: Props): React.JSX.Element => {
     };
 
     const chatType = chatIsGroup ? "Ryhmä" : "Yksityinen";
-    /* const chatIcon = chatIsGroup ? <GroupIcon className={styles.chatIconImg} /> : <UserIcon className={styles.chatIconImg} />; */
 
     const chatHasOtherOnlineUsers = chat.chatParticipants.find((participant) => {
         return userInfoState.id !== participant.id && onlineUserIds.includes(participant.id);

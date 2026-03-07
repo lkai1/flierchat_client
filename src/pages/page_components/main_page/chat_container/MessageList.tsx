@@ -21,12 +21,8 @@ const MessageList = (): React.JSX.Element => {
     const { userInfoState } = useContext(UserInfoContext);
     const [onHoverMessage, setOnHoverMessage] = useState("");
     const [messageListItemsState, setMessageListItemsState] = useState<React.JSX.Element[]>([]);
-    const [messageListContainerState, setMessageListContainerState] = useState<React.JSX.Element>(<></>);
-    const scrolledToFirstUnreadMessageElementRef = useRef(false);
-    const firstUnreadMessageElementRef = useRef<HTMLDivElement | null>(null);
     const messageListRef = useRef<HTMLDivElement | null>(null);
-    const { getUnreadMessagesAmountForChat, clearUnreadMessagesForChat } = useContext(SocketContext);
-    const unreadMessagesAmount = getUnreadMessagesAmountForChat(selectedChatState.id);
+    const { clearUnreadMessagesForChat } = useContext(SocketContext);
 
     const scrollHeightBeforeLoadRef = useRef<number>(0);
     const wasLoadingMoreRef = useRef(false);
@@ -45,10 +41,6 @@ const MessageList = (): React.JSX.Element => {
         messageListRef.current.scrollTop = newScrollHeight - scrollHeightBeforeLoadRef.current;
     }, [selectedChatState.messages]);
 
-    useEffect(() => {
-        scrolledToFirstUnreadMessageElementRef.current = false;
-    }, [selectedChatState.id]);
-
     const topSentinelRef = useRef<HTMLDivElement | null>(null);
 
     const handleSentinelIntersection = useCallback((entries: IntersectionObserverEntry[]): void => {
@@ -57,18 +49,22 @@ const MessageList = (): React.JSX.Element => {
         }
     }, [hasMoreMessages, isLoadingMoreMessages, loadMoreMessages]);
 
+    const handleSentinelIntersectionRef = useRef(handleSentinelIntersection);
     useEffect(() => {
-        const observer = new IntersectionObserver(handleSentinelIntersection, {
-            root: messageListRef.current,
-            threshold: 0.1
-        });
-
-        if (topSentinelRef.current) {
-            observer.observe(topSentinelRef.current);
-        }
-
-        return (): void => { observer.disconnect(); };
+        handleSentinelIntersectionRef.current = handleSentinelIntersection;
     }, [handleSentinelIntersection]);
+
+    useEffect(() => {
+        const sentinel = topSentinelRef.current;
+        const observer = new IntersectionObserver(
+            (entries) => { handleSentinelIntersectionRef.current(entries); },
+            { threshold: 0.1 }
+        );
+        if (sentinel) {
+            observer.observe(sentinel);
+        }
+        return (): void => { observer.disconnect(); };
+    }, [selectedChatState.messages]);
 
     useEffect(() => {
         const UsernameAndTimestamp = ({ message }: { message: Message }): React.JSX.Element => {
@@ -96,7 +92,6 @@ const MessageList = (): React.JSX.Element => {
                 const message = selectedChatState.messages[i];
                 const messageElement = <div
                     key={message.id}
-                    ref={(i === selectedChatState.messages.length - unreadMessagesAmount) ? firstUnreadMessageElementRef : null}
                     className={userInfoState.id === message.messageCreator.id ? styles.userMessageContainer : styles.messageContainer}
                     onMouseEnter={(event) => {
                         event.preventDefault();
@@ -123,9 +118,6 @@ const MessageList = (): React.JSX.Element => {
                     </div>
                 </div>;
 
-                if (i === selectedChatState.messages.length - unreadMessagesAmount) {
-                    messageItemsList.push(<p key={`unread-banner-${selectedChatState.id}`} className={styles.newMessagesInfoText}>{`${unreadMessagesAmount} uutta viestiä`}</p>);
-                }
                 messageItemsList.push(messageElement);
             }
 
@@ -145,33 +137,8 @@ const MessageList = (): React.JSX.Element => {
         };
         handleCreateMessageItemsList();
 
-    }, [onHoverMessage, selectedChatState.id, selectedChatState.messages, unreadMessagesAmount, userInfoState.id, isLoadingMoreMessages]);
+    }, [onHoverMessage, selectedChatState.id, selectedChatState.messages, userInfoState.id, isLoadingMoreMessages]);
 
-    useEffect(() => {
-        const handleCreateMessageListContainer = (): void => {
-            setMessageListContainerState(
-                <div className={styles.messageListContainer}
-                    ref={messageListRef}
-                    onClick={() => {
-                        clearUnreadMessagesForChat(selectedChatState.id);
-                    }}
-                >
-                    {messageListItemsState}
-                </div>
-            );
-        };
-        handleCreateMessageListContainer();
-    }, [messageListItemsState, selectedChatState.id]);
-
-
-    if (
-        firstUnreadMessageElementRef.current
-        && !scrolledToFirstUnreadMessageElementRef.current
-        && unreadMessagesAmount
-    ) {
-        firstUnreadMessageElementRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
-        scrolledToFirstUnreadMessageElementRef.current = true;
-    }
 
     return (
         <div className={styles.mainContainer}>
@@ -183,7 +150,13 @@ const MessageList = (): React.JSX.Element => {
                 </div>
                 :
                 selectedChatState.messages.length > 0 ?
-                    messageListContainerState
+                    <div
+                        className={styles.messageListContainer}
+                        ref={messageListRef}
+                        onClick={() => { clearUnreadMessagesForChat(selectedChatState.id); }}
+                    >
+                        {messageListItemsState}
+                    </div>
                     :
                     <div className={styles.noMessagesContainer}>
                         <p className={styles.noMessagesText}>
